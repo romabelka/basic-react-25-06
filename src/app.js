@@ -7,7 +7,7 @@ import ArticlesChart from './components/chart'
 
 class App extends Component {
   state = {
-    selected: null
+    selected: []
   }
 
   handleSelectChange = (selected) => this.setState({ selected })
@@ -18,6 +18,7 @@ class App extends Component {
       <div>
         <UserForm />
         <Select
+          isMulti
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}

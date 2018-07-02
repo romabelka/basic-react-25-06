@@ -23,7 +23,13 @@ class Article extends PureComponent {
     const { isOpen, article } = this.props
     if (!isOpen) return null
 
-    return <section>{article.text}</section>
+    return <section ref={this.setSectionRef}>{article.text}</section>
+  }
+
+  setSectionRef = (ref) => (this.section = ref)
+
+  componentDidUpdate() {
+    console.log('---', this.section)
   }
 }
 

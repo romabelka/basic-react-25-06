@@ -26,13 +26,13 @@ class ArticleList extends Component {
         <Article
           article={article}
           isOpen={this.state.openArticleId === article.id}
-          toggleOpen={this.toggleOpenArticle(article.id)}
+          toggleOpen={this.toggleOpenArticle}
         />
       </li>
     ))
   }
 
-  toggleOpenArticle = (openArticleId) => () => this.setState({ openArticleId })
+  toggleOpenArticle = (openArticleId) => this.setState({ openArticleId })
 }
 
 export default ArticleList

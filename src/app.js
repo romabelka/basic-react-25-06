@@ -20,7 +20,7 @@ class App extends Component {
         <Select
           options={this.options}
           onChange={this.handleSelectChange}
-          value={this.state.value}
+          value={this.state.selected}
         />
         <ArticleList articles={articles} ref={this.setListRef} />
         <ArticlesChart articles={articles} />

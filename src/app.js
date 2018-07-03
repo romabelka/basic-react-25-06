@@ -8,7 +8,7 @@ import DateRange from './components/date-range'
 
 class App extends Component {
   state = {
-    selected: null
+    selected: []
   }
 
   handleSelectChange = (selected) => this.setState({ selected })
@@ -20,6 +20,7 @@ class App extends Component {
         <UserForm />
         <DateRange />
         <Select
+          isMulti={true}
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}

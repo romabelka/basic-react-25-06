@@ -27,10 +27,6 @@ class Article extends PureComponent {
   }
 
   setSectionRef = (ref) => (this.section = ref)
-
-  componentDidUpdate() {
-    console.log('---', this.section)
-  }
 }
 
 export default Article

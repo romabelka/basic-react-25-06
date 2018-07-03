@@ -4,10 +4,11 @@ import Select from 'react-select'
 import ArticleList from './components/article-list'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
+import DateRange from './components/date-range'
 
 class App extends Component {
   state = {
-    selected: null
+    selected: []
   }
 
   handleSelectChange = (selected) => this.setState({ selected })
@@ -17,7 +18,9 @@ class App extends Component {
     return (
       <div>
         <UserForm />
+        <DateRange />
         <Select
+          isMulti={true}
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}

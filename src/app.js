@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <div>
         <UserForm />
-        <DateRange/>
+        <DateRange />
         <Select
           options={this.options}
           onChange={this.handleSelectChange}

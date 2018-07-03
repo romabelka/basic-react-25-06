@@ -4,6 +4,7 @@ import Select from 'react-select'
 import ArticleList from './components/article-list'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
+import DatePickerRange from "./components/date-picker-range";
 
 class App extends Component {
   state = {
@@ -24,6 +25,7 @@ class App extends Component {
         />
         <ArticleList articles={articles} ref={this.setListRef} />
         <ArticlesChart articles={articles} />
+        <DatePickerRange/>
       </div>
     )
   }

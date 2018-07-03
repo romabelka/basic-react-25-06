@@ -16,8 +16,15 @@ class Article extends PureComponent {
       </div>
     )
   }
-
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  // обработчик: если true , т.е. статья открыта, т.е. id текущей статьи = openItemId в декораторе - закрывает, т.е. передает в openItemId null
+  handleClick = () => {
+    const { isOpen } = this.props
+    if (isOpen) {
+      this.props.toggleOpen(null)
+    } else {
+      this.props.toggleOpen(this.props.article.id)
+    }
+  }
 
   get body() {
     const { isOpen, article } = this.props

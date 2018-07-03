@@ -12,8 +12,8 @@ class ArticleList extends Component {
       <li key={article.id}>
         <Article
           article={article}
-          isOpen={this.props.openItemId === article.id}
-          toggleOpen={this.props.toggleOpenItem}
+          isOpen={this.props.openItemId === article.id} //boolean сравнивает пропс из аккордеона с текущим id
+          toggleOpen={this.props.toggleOpenItem} //дальше прокидывает callback
         />
       </li>
     ))

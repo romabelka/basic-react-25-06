@@ -8,10 +8,15 @@ import DatePickerRange from "./components/date-picker-range";
 
 class App extends Component {
   state = {
-    selected: null
+    selected: null,
+    multiSelected: []
   }
 
   handleSelectChange = (selected) => this.setState({ selected })
+  handleMultiSelectChange = (multiSelected) => {
+      console.log(multiSelected)
+      this.setState({ multiSelected })
+  }
 
   render() {
     const { articles } = this.props
@@ -23,9 +28,17 @@ class App extends Component {
           onChange={this.handleSelectChange}
           value={this.state.selected}
         />
+        <Select
+            options={this.options}
+            onChange={this.handleMultiSelectChange}
+            value={this.state.multiSelected}
+            hideSelectedOptions = {true}
+            isMulti={true}
+        />
         <ArticleList articles={articles} ref={this.setListRef} />
         <ArticlesChart articles={articles} />
         <DatePickerRange/>
+
       </div>
     )
   }

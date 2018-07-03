@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
+import collapsible from '../decorators/collapsible'
 
 class CommentsList extends Component {
-    state = {
-        visible: false
-    }
-
     render() {
+        const {expanded, toggleCollapsibility} = this.props
         return  (
             <div>
-              <button onClick={() => this.setState({visible: !this.state.visible})}>
-                {this.state.visible ? 'hide comments' : `show comments (${this.comments.length})`}
+              <button onClick={toggleCollapsibility}>
+                {expanded ? 'hide comments' : `show comments (${this.comments.length})`}
               </button>
-              {this.state.visible && <ul>{this.comments}</ul>}
+              {expanded && <ul>{this.comments}</ul>}
             </div>
         )
     }
@@ -26,4 +24,4 @@ class CommentsList extends Component {
     }
 }
 
-export default CommentsList
+export default collapsible(CommentsList)

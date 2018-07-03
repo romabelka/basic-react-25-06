@@ -32,7 +32,7 @@ class App extends Component {
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}
-          multi
+          isMulti
         />
         <DateRangePicker
           startDate={this.state.startDate}

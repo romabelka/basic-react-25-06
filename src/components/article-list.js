@@ -12,12 +12,14 @@ class ArticleList extends Component {
       <li key={article.id}>
         <Article
           article={article}
-          isOpen={this.props.openItemId === article.id}
-          toggleOpen={this.props.toggleOpenItem}
+          isOpenArticle={this.props.openArticleId === article.id}
+          toggleOpenArticle={this.props.toggleOpenArticle}
+          isOpenComments={this.props.openCommentsId === article.id}
+          toggleOpenComments={this.props.toggleOpenComments}
         />
       </li>
     ))
   }
 }
 
-export default accordion(ArticleList)
+export default accordion(accordion(ArticleList, 'Article'), 'Comments')

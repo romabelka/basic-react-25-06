@@ -5,7 +5,7 @@ function Comments(props) {
   const { comments, isCollapsed, toggleCollapse } = props
 
   if (!comments || !comments.length) {
-    return
+    return <h4>No comments</h4>
   }
 
   return (

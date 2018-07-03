@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Article from './article'
 import accordion from '../decorators/accordion'
+import CommentList from './comment-list'
 
 class ArticleList extends Component {
   render() {
@@ -14,6 +15,10 @@ class ArticleList extends Component {
           article={article}
           isOpen={this.props.openItemId === article.id}
           toggleOpen={this.props.toggleOpenItem}
+        />
+        <CommentList
+          articleIsOpen={this.props.openItemId === article.id}
+          comments={article.comments}
         />
       </li>
     ))

@@ -17,7 +17,8 @@ class Article extends PureComponent {
     )
   }
 
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  handleClick = () =>
+    this.props.toggleOpen(this.props.isOpen ? null : this.props.article.id)
 
   get body() {
     const { isOpen, article } = this.props

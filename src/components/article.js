@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import CommentList from './comment-list'
 
 class Article extends PureComponent {
   render() {
@@ -17,13 +18,21 @@ class Article extends PureComponent {
     )
   }
 
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  handleClick = () => {
+    console.log('---', 'clicked')
+    this.props.toggleOpen(this.props.article.id)
+  }
 
   get body() {
     const { isOpen, article } = this.props
     if (!isOpen) return null
 
-    return <section ref={this.setSectionRef}>{article.text}</section>
+    return (
+      <section ref={this.setSectionRef}>
+        {article.text}
+        <CommentList comments={article.comments} />
+      </section>
+    )
   }
 
   setSectionRef = (ref) => (this.section = ref)

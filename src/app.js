@@ -8,13 +8,16 @@ import RangeDatePicker from './components/range-date-picker'
 
 class App extends Component {
   state = {
-    selected: null
+    selected: []
   }
 
-  handleSelectChange = (selected) => this.setState({ selected })
+  handleSelectChange = (selected) => {
+    this.setState({ selected })
+  }
 
   render() {
     const { articles } = this.props
+
     return (
       <div>
         <UserForm />
@@ -23,6 +26,9 @@ class App extends Component {
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}
+          removeSelected
+          isMulti
+          closeOnSelect
         />
         <ArticleList articles={articles} ref={this.setListRef} />
         <ArticlesChart articles={articles} />

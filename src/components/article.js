@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react'
+import Opener from '../decorators/opener.jsx'
+import CommentList from './CommentList.jsx'
 
 class Article extends PureComponent {
   render() {
-    console.log('---', 'rerendering article')
     const { article, isOpen } = this.props
     return (
-      <div>
+      <div style={{ width: '80%' }}>
         <h3>
           {article.title}
           <button onClick={this.handleClick}>
@@ -17,20 +18,32 @@ class Article extends PureComponent {
     )
   }
 
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  handleClick = () => {
+    this.props.toggleOpen(this.props.article.id)
+    if (this.props.ifShown) this.showComments() // закрыть комментарии если закрываем статью
+  }
+
+  showComments = () => {
+    this.props.showItem()
+  }
 
   get body() {
-    const { isOpen, article } = this.props
+    const { isOpen, article, ifShown } = this.props
     if (!isOpen) return null
 
-    return <section ref={this.setSectionRef}>{article.text}</section>
+    return (
+      <section ref={this.setSectionRef}>
+        {article.text}
+        <br />
+        {article.comments ? (
+          <button onClick={this.showComments}>Показать комментарии</button>
+        ) : null}
+        {ifShown ? <CommentList comments={article.comments} /> : null}
+      </section>
+    )
   }
 
   setSectionRef = (ref) => (this.section = ref)
-
-  componentDidUpdate() {
-    console.log('---', this.section)
-  }
 }
 
-export default Article
+export default Opener(Article)

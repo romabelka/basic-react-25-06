@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react'
+import CommentList from './comment-list'
+import accordion from '../decorators/accordion'
 
 class Article extends PureComponent {
   render() {
@@ -23,7 +25,21 @@ class Article extends PureComponent {
     const { isOpen, article } = this.props
     if (!isOpen) return null
 
-    return <section ref={this.setSectionRef}>{article.text}</section>
+    return (
+      <div>
+        <section ref={this.setSectionRef}>{article.text}</section>
+        <button onClick={this.handleShowCommentsClick}>
+          {article.id == this.props.openItemId
+            ? 'Скрыть комментарии'
+            : 'Показать комментарии'}
+        </button>
+        <CommentList
+          articleId={article.id}
+          comments={article.comments ? article.comments : []}
+          isOpen={article.id == this.props.openItemId}
+        />
+      </div>
+    )
   }
 
   setSectionRef = (ref) => (this.section = ref)
@@ -31,6 +47,10 @@ class Article extends PureComponent {
   componentDidUpdate() {
     console.log('---', this.section)
   }
+
+  handleShowCommentsClick = () => {
+    this.props.toggleOpenItem(this.props.article.id)
+  }
 }
 
-export default Article
+export default accordion(Article)

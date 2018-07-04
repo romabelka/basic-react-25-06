@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react'
 import CommentList from './comment-list'
+import demonstrator from '../decorators/demonstrator'
 
 class Article extends PureComponent {
+  setSectionRef = (ref) => (this.section = ref)
+
   render() {
     console.log('---', 'rerendering article')
     const { article, isOpen } = this.props
@@ -35,16 +38,14 @@ class Article extends PureComponent {
       <div>
         <section ref={this.setSectionRef}>{article.text}</section>
         <h4>Comments:</h4>
-        <CommentList comments={article.comments} />
+        <CommentList
+          comments={article.comments}
+          isShown={this.props.showItems}
+          toggleShow={this.props.toggleShowItems}
+        />
       </div>
     )
   }
-
-  setSectionRef = (ref) => (this.section = ref)
-
-  componentDidUpdate() {
-    console.log('---', this.section)
-  }
 }
 
-export default Article
+export default demonstrator(Article)

@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
-import CommentItem from './comment'
+import CommentItem from './comment-item'
 
 class CommentList extends Component {
   render() {
+    const { isShown } = this.props
+
     return (
       <div>
-        <button>show comments</button>
-        <ul>{this.comments}</ul>
+        <button onClick={this.handleChange}>
+          {isShown ? 'hide comments' : 'show comments'}
+        </button>
+        {isShown ? <ul>{this.comments}</ul> : null}
       </div>
     )
+  }
+
+  handleChange = () => {
+    const { isShown } = this.props
+    if (isShown === false) {
+      this.props.toggleShow(true)
+    } else {
+      this.props.toggleShow(false)
+    }
   }
 
   get comments() {

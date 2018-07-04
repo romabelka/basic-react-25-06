@@ -1,22 +1,31 @@
 import React, { Component } from 'react'
 import Article from './article'
+import List from './list'
 import accordion from '../decorators/accordion'
 
 class ArticleList extends Component {
   render() {
-    return <ul>{this.articles}</ul>
+    return (
+      <List
+        items={this.props.articles}
+        getKey={this.getKey}
+        getItem={this.getItem}
+      />
+    )
   }
 
-  get articles() {
-    return this.props.articles.map((article) => (
-      <li key={article.id}>
-        <Article
-          article={article}
-          isOpen={this.props.openItemId === article.id}
-          toggleOpen={this.props.toggleOpenItem}
-        />
-      </li>
-    ))
+  getKey = (article) => {
+    return article.id
+  }
+
+  getItem = (article) => {
+    return (
+      <Article
+        article={article}
+        isOpen={this.props.openItemId === article.id}
+        toggleOpen={this.props.toggleOpenItem}
+      />
+    )
   }
 }
 

@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import Comment from './comment'
+import Toggler from '../decorators/toggler'
 
 class CommentList extends Component {
   state = {
     opened: false
   }
   toggleComments = () => {
-    this.setState({ opened: !this.state.opened })
+    this.props.toggle()
   }
   render() {
     return (
       <div>
         <a href="#" onClick={this.toggleComments}>
-          {this.state.opened ? 'hide comments' : 'show comments'}
+          {this.props.opened ? 'hide comments' : 'show comments'}
         </a>
         {this.comments}
       </div>
@@ -20,9 +21,10 @@ class CommentList extends Component {
   }
 
   get comments() {
-    if (!this.state.opened) return null
+    const { opened, comments } = this.props
+    if (!opened) return null
 
-    return this.props.comments.map((comment) => (
+    return comments.map((comment) => (
       <li key={comment.id}>
         <Comment comment={comment} />
       </li>
@@ -30,4 +32,4 @@ class CommentList extends Component {
   }
 }
 
-export default CommentList
+export default Toggler(CommentList)

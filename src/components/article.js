@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react'
+import CommentList from './comment-list'
 
 class Article extends PureComponent {
+  setSectionRef = (ref) => (this.section = ref)
+
   render() {
     console.log('---', 'rerendering article')
     const { article, isOpen } = this.props
@@ -16,20 +19,27 @@ class Article extends PureComponent {
       </div>
     )
   }
-
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  // обработчик: если true , т.е. статья открыта, т.е. id текущей статьи = openItemId в декораторе - закрывает, т.е. передает в openItemId null
+  handleClick = () => {
+    const { isOpen } = this.props
+    if (isOpen) {
+      this.props.toggleOpen(null)
+    } else {
+      this.props.toggleOpen(this.props.article.id)
+    }
+  }
 
   get body() {
     const { isOpen, article } = this.props
     if (!isOpen) return null
 
-    return <section ref={this.setSectionRef}>{article.text}</section>
-  }
-
-  setSectionRef = (ref) => (this.section = ref)
-
-  componentDidUpdate() {
-    console.log('---', this.section)
+    return (
+      <div>
+        <section ref={this.setSectionRef}>{article.text}</section>
+        <h4>Comments:</h4>
+        <CommentList comments={article.comments} />
+      </div>
+    )
   }
 }
 

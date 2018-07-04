@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
+import CommentsList from '../components/comments-list'
 
 class Article extends PureComponent {
   render() {
-    console.log('---', 'rerendering article')
     const { article, isOpen } = this.props
     return (
       <div>
@@ -13,11 +13,13 @@ class Article extends PureComponent {
           </button>
         </h3>
         {this.body}
+        <CommentsList comments={article.comments} />
       </div>
     )
   }
 
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  handleClick = () =>
+    this.props.toggleOpen(this.props.isOpen ? null : this.props.article.id)
 
   get body() {
     const { isOpen, article } = this.props

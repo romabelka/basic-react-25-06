@@ -1,9 +1,10 @@
 {
-  "name": "basic-25-06", 
+  "name": "basic-25-06",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.4.1",
+    "react-day-picker": "^7.1.9",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
     "react-select": "^2.0.0-beta.6"

@@ -4,6 +4,7 @@ import Select from 'react-select'
 import ArticleList from './components/article-list'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
+import Datepicker from './components/datepicker'
 
 class App extends Component {
   state = {
@@ -17,9 +18,11 @@ class App extends Component {
     return (
       <div>
         <UserForm />
+        <Datepicker />
         <Select
           options={this.options}
           onChange={this.handleSelectChange}
+          isMulti
           value={this.state.selected}
         />
         <ArticleList articles={articles} ref={this.setListRef} />

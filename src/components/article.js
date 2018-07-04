@@ -11,6 +11,9 @@ class Article extends PureComponent {
           <button onClick={this.handleClick}>
             {isOpen ? 'close' : 'open'}
           </button>
+          {/*<button onClick={this.handleToggleComments}>*/}
+          {/*{isOpen ? 'close comments' : 'open comments'}*/}
+          {/*</button>*/}
         </h3>
         {this.body}
       </div>
@@ -18,6 +21,8 @@ class Article extends PureComponent {
   }
 
   handleClick = () => this.props.toggleOpen(this.props.article.id)
+
+  // handleToggleComments = () => this.props.toggleOpen(this.props.article.id)
 
   get body() {
     const { isOpen, article } = this.props

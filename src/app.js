@@ -4,10 +4,12 @@ import Select from 'react-select'
 import ArticleList from './components/article-list'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
+import DayRangePicker from './components/DayRangePicker'
+import './components/DayRangePicker/styles.css'
 
 class App extends Component {
   state = {
-    selected: null
+    selected: []
   }
 
   handleSelectChange = (selected) => this.setState({ selected })
@@ -17,10 +19,12 @@ class App extends Component {
     return (
       <div>
         <UserForm />
+        <DayRangePicker />
         <Select
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}
+          isMulti
         />
         <ArticleList articles={articles} ref={this.setListRef} />
         <ArticlesChart articles={articles} />

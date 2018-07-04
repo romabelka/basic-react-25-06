@@ -8,7 +8,7 @@ export default (Origin) => class Opener extends Component {
 
   render() {
     return(
-        <Origin showComments={this.toggle} {...this.props} {...this.state}/>
+        <Origin showItem={this.toggle} {...this.props} {...this.state}/>
       )
   }
 

@@ -11,7 +11,7 @@ class CommentList extends Component {
 
   get comments() {
     const {comments} = this.props
-    return comments ? comments.map((elem) => {
+    return comments.map((elem) => {
       return(
         <li key={elem.id}>
           <h3>{elem.user}</h3>
@@ -19,7 +19,7 @@ class CommentList extends Component {
           {elem.text}
         </li>
         )
-    }) : "Комментариев нет."    
+    })    
   }
 }
 

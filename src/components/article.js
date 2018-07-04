@@ -24,7 +24,7 @@ class Article extends PureComponent {
   }
 
   showComments = () => {
-    this.props.showComments()
+    this.props.showItem()
   }
 
   get body() {
@@ -35,7 +35,9 @@ class Article extends PureComponent {
       <section ref={this.setSectionRef}>
         {article.text}
         <br />
-        <button onClick={this.showComments}>Показать комментарии</button>
+        {article.comments ? (
+          <button onClick={this.showComments}>Показать комментарии</button>
+        ) : null}
         {ifShown ? <CommentList comments={article.comments} /> : null}
       </section>
     )

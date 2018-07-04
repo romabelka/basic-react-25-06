@@ -15,13 +15,14 @@ class App extends Component {
   state = {
     from: undefined,
     to: undefined,
-    selected: null
+    selected: []
   }
 
-  handleSelectChange = (selected) => this.setState({ selected })
+  handleSelectChange = (selected) => {
+    this.setState({ selected })
+  }
 
   handleDayClick = (day) => {
-    const { from, to } = this.state
     const range = DateUtils.addDayToRange(day, this.state)
     this.setState(range)
   }
@@ -87,6 +88,7 @@ class App extends Component {
 
         <UserForm />
         <Select
+          isMulti
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}

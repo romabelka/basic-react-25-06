@@ -4,13 +4,13 @@ import React from 'react'
 export default (OriginalComponent) =>
   class DecoratedComponent extends React.Component {
     state = {
-      openItemId: null
+      openItem: null
     }
 
-    toggleOpenItem = (openItemId) =>
+    toggleOpenItem = (openItem) =>
       this.setState((prevState) => {
         return {
-          openItemId: prevState.openItemId === openItemId ? null : openItemId
+          openItem: prevState.openItem === openItem ? null : openItem
         }
       })
 

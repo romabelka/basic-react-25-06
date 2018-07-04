@@ -1,17 +1,11 @@
 import React, { PureComponent } from 'react'
 import Comments from '../components/comments'
+import accordion from '../decorators/accordion'
 
 class Article extends PureComponent {
-  state = {
-    isOpenComments: false
-  }
-
   handleClickToggleArticle = () => this.props.toggleOpen(this.props.article.id)
 
-  handleClickToggleComments = () =>
-    this.setState((prevState) => ({
-      isOpenComments: !prevState.isOpenComments
-    }))
+  handleClickToggleComments = () => this.props.toggleOpenItem(true)
 
   setSectionRef = (ref) => (this.section = ref)
 
@@ -21,8 +15,7 @@ class Article extends PureComponent {
   }
 
   render() {
-    const { article, isOpen } = this.props
-    const { isOpenComments } = this.state
+    const { article, isOpen, openItem } = this.props
     return (
       <div>
         <h3>
@@ -35,13 +28,13 @@ class Article extends PureComponent {
         {article.comments &&
           isOpen && (
             <button onClick={this.handleClickToggleComments}>
-              {isOpenComments ? 'close' : 'open'}
+              {openItem ? 'close' : 'open'}
             </button>
           )}
-        {isOpenComments && <Comments comments={article.comments} />}
+        {isOpen && openItem && <Comments comments={article.comments} />}
       </div>
     )
   }
 }
 
-export default Article
+export default accordion(Article)

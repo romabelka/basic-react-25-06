@@ -4,10 +4,15 @@ import React from 'react'
 export default (OriginalComponent) =>
   class DecoratedComponent extends React.Component {
     state = {
-      openItemId: null
+      openItem: null
     }
 
-    toggleOpenItem = (openItemId) => this.setState({ openItemId })
+    toggleOpenItem = (openItem) =>
+      this.setState((prevState) => {
+        return {
+          openItem: prevState.openItem === openItem ? null : openItem
+        }
+      })
 
     render() {
       return (

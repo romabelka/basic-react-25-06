@@ -1,36 +1,40 @@
 import React, { PureComponent } from 'react'
+import Comments from '../components/comments'
+import accordion from '../decorators/accordion'
 
 class Article extends PureComponent {
+  handleClickToggleArticle = () => this.props.toggleOpen(this.props.article.id)
+
+  handleClickToggleComments = () => this.props.toggleOpenItem(true)
+
+  setSectionRef = (ref) => (this.section = ref)
+
+  get body() {
+    const { article } = this.props
+    return <section ref={this.setSectionRef}>{article.text}</section>
+  }
+
   render() {
-    console.log('---', 'rerendering article')
-    const { article, isOpen } = this.props
+    const { article, isOpen, openItem } = this.props
     return (
       <div>
         <h3>
           {article.title}
-          <button onClick={this.handleClick}>
+          <button onClick={this.handleClickToggleArticle}>
             {isOpen ? 'close' : 'open'}
           </button>
         </h3>
-        {this.body}
+        {isOpen && this.body}
+        {article.comments &&
+          isOpen && (
+            <button onClick={this.handleClickToggleComments}>
+              {openItem ? 'close' : 'open'}
+            </button>
+          )}
+        {isOpen && openItem && <Comments comments={article.comments} />}
       </div>
     )
   }
-
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
-
-  get body() {
-    const { isOpen, article } = this.props
-    if (!isOpen) return null
-
-    return <section ref={this.setSectionRef}>{article.text}</section>
-  }
-
-  setSectionRef = (ref) => (this.section = ref)
-
-  componentDidUpdate() {
-    console.log('---', this.section)
-  }
 }
 
-export default Article
+export default accordion(Article)

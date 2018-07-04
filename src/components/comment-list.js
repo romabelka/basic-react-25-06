@@ -1,27 +1,20 @@
 import React, { Component } from 'react'
 import CommentItem from './comment-item'
+import demonstrator from '../decorators/demonstrator'
 
 class CommentList extends Component {
   render() {
-    const { isShown } = this.props
+    console.log(this.props)
+    const { isShow, toggleShowItems } = this.props
 
     return (
       <div>
-        <button onClick={this.handleChange}>
-          {isShown ? 'hide comments' : 'show comments'}
+        <button onClick={toggleShowItems}>
+          {isShow ? 'hide comments' : 'show comments'}
         </button>
-        {isShown ? <ul>{this.comments}</ul> : null}
+        {isShow && <ul>{this.comments}</ul>}
       </div>
     )
-  }
-
-  handleChange = () => {
-    const { isShown } = this.props
-    if (isShown === false) {
-      this.props.toggleShow(true)
-    } else {
-      this.props.toggleShow(false)
-    }
   }
 
   get comments() {
@@ -32,4 +25,4 @@ class CommentList extends Component {
     ))
   }
 }
-export default CommentList
+export default demonstrator(CommentList)

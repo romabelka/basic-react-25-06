@@ -3,10 +3,13 @@ import React from 'react'
 export default (OrirginalItem) =>
   class DecoratedItem extends React.Component {
     state = {
-      showItems: false
+      isShow: false
     }
 
-    toggleShowItems = (showItems) => this.setState({ showItems })
+    toggleShowItems = () =>
+      this.setState((prevState) => ({
+        isShow: !prevState.isShow
+      }))
 
     render() {
       return (

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import CommentList from './comment-list'
 
 class Article extends PureComponent {
   render() {
@@ -23,7 +24,15 @@ class Article extends PureComponent {
     const { isOpen, article } = this.props
     if (!isOpen) return null
 
-    return <section ref={this.setSectionRef}>{article.text}</section>
+    return (
+      <div>
+        <section ref={this.setSectionRef}>{article.text}</section>
+        <section>
+          <h4>Comments</h4>
+          <CommentList comments={article.comments} />
+        </section>
+      </div>
+    )
   }
 
   setSectionRef = (ref) => (this.section = ref)

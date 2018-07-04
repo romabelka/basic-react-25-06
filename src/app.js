@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import Select from 'react-select'
 import ArticleList from './components/article-list'
+import RangeDatePicker from './components/date-range'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
 
 class App extends Component {
   state = {
-    selected: null
+    selected: []
   }
 
   handleSelectChange = (selected) => this.setState({ selected })
@@ -17,10 +18,12 @@ class App extends Component {
     return (
       <div>
         <UserForm />
+        <RangeDatePicker />
         <Select
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}
+          isMulti
         />
         <ArticleList articles={articles} ref={this.setListRef} />
         <ArticlesChart articles={articles} />

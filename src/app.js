@@ -22,6 +22,7 @@ class App extends Component {
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}
+          isMulti={true}
         />
         <RangeDayPicker />
         <ArticleList articles={articles} ref={this.setListRef} />

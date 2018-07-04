@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "moment": "^2.22.2",
     "react": "^16.4.1",
+    "react-day-picker": "^7.1.9",
     "react-dom": "^16.4.1",
+    "react-helmet": "^5.2.0",
     "react-scripts": "1.1.4",
-    "react-select": "^2.0.0-beta.6"
+    "react-select": "^2.0.0-beta.6",
+    "webpack-command": "^0.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

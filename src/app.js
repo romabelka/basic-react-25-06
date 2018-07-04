@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import Select from 'react-select'
 import ArticleList from './components/article-list'
+import RangeDatePicker from './components/date-range'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
 
@@ -17,6 +18,7 @@ class App extends Component {
     return (
       <div>
         <UserForm />
+        <RangeDatePicker />
         <Select
           options={this.options}
           onChange={this.handleSelectChange}

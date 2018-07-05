@@ -31,6 +31,7 @@ class App extends Component {
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}
+          isMulti
         />
         <div>
           <DayPickerInput

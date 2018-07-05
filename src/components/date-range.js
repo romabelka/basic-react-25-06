@@ -9,18 +9,16 @@ class DateRange extends PureComponent {
     return (
       <div>
         {'Date range: '}
-        {this.formattedDate(startDate)}
+        {DateRange.formattedDate(startDate)}
         {' - '}
-        {this.formattedDate(endDate)}
+        {DateRange.formattedDate(endDate)}
       </div>
     )
   }
+}
 
-  formattedDate(date) {
-    if (!date) return '-/-/-'
-
-    return <Moment format="YYYY/MM/DD">{date}</Moment>
-  }
+DateRange.formattedDate = function(date) {
+  return date ? <Moment format="YYYY/MM/DD">{date}</Moment> : '-/-/-'
 }
 
 export default DateRange

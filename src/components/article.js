@@ -3,7 +3,6 @@ import ArticleCommentList from './article-comment-list'
 
 class Article extends PureComponent {
   render() {
-    console.log('---', 'rerendering article')
     const { article, isOpen } = this.props
     return (
       <div>
@@ -33,10 +32,6 @@ class Article extends PureComponent {
   }
 
   setSectionRef = (ref) => (this.section = ref)
-
-  componentDidUpdate() {
-    console.log('---', this.section)
-  }
 }
 
 export default Article

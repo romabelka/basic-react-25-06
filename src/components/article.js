@@ -12,13 +12,12 @@ class Article extends PureComponent {
   }
 
   render() {
-    console.log('---', 'rerendering article')
     const { article, isOpen } = this.props
     return (
-      <div>
+      <div className="test--article__container">
         <h3>
           {article.title}
-          <button onClick={this.handleClick}>
+          <button onClick={this.handleClick} className="test--article__btn">
             {isOpen ? 'close' : 'open'}
           </button>
         </h3>
@@ -34,17 +33,11 @@ class Article extends PureComponent {
     if (!isOpen) return null
 
     return (
-      <section ref={this.setSectionRef}>
+      <section className="test--article__body">
         {article.text}
         {!this.state.error && <CommentList comments={article.comments} />}
       </section>
     )
-  }
-
-  setSectionRef = (ref) => (this.section = ref)
-
-  componentDidUpdate() {
-    console.log('---', this.section)
   }
 }
 

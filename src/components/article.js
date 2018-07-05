@@ -1,7 +1,16 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import CommentList from './comment-list'
 
 class Article extends PureComponent {
+  state = {
+    error: null
+  }
+
+  componentDidCatch(error) {
+    this.setState({ error })
+  }
+
   render() {
     console.log('---', 'rerendering article')
     const { article, isOpen } = this.props
@@ -27,7 +36,7 @@ class Article extends PureComponent {
     return (
       <section ref={this.setSectionRef}>
         {article.text}
-        <CommentList comments={article.comments} />
+        {!this.state.error && <CommentList comments={article.comments} />}
       </section>
     )
   }
@@ -37,6 +46,18 @@ class Article extends PureComponent {
   componentDidUpdate() {
     console.log('---', this.section)
   }
+}
+
+Article.propTypes = {
+  article: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    comments: PropTypes.array
+  }).isRequired,
+
+  isOpen: PropTypes.bool,
+  toggleOpen: PropTypes.func.isRequired
 }
 
 export default Article

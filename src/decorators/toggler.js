@@ -13,14 +13,12 @@ export default (OriginalComponent) =>
     }
 
     render() {
-      const { isOpen } = this.state
       return (
         <div>
           <OriginalComponent
             {...this.props}
             {...this.state}
             toggle={this.toggle}
-            isOpen={isOpen}
           />
         </div>
       )

@@ -4,12 +4,12 @@ import accordion from '../decorators/accordion'
 
 class ArticleList extends Component {
   render() {
-    return <ul>{this.articles}</ul>
+    return <ul className="list-group">{this.articles}</ul>
   }
 
   get articles() {
     return this.props.articles.map((article) => (
-      <li key={article.id}>
+      <li key={article.id} className="list-group-item">
         <Article
           article={article}
           isOpen={this.props.openItemId === article.id}

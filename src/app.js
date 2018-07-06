@@ -6,6 +6,7 @@ import 'react-day-picker/lib/style.css'
 import ArticleList from './components/article-list'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
+import 'bootstrap/dist/css/bootstrap.css'
 
 class App extends Component {
   state = {
@@ -75,8 +76,6 @@ class App extends Component {
 
   setListRef = (ref) => {
     this.articleList = ref
-    console.log('---', findDOMNode(this.articleList))
-    console.log('---', ref)
     window.articleList = ref
   }
 }

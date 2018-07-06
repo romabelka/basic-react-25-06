@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import ArticleList from './components/article-list'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
-import FilterForm from './components/filter-form'
-import 'react-dates/initialize'
-import 'react-dates/lib/css/_datepicker.css'
+import Filters from './components/filters'
 
 class App extends Component {
   render() {
@@ -13,15 +11,11 @@ class App extends Component {
     return (
       <div>
         <UserForm />
-        <FilterForm articles={articles} />
-        <ArticleList articles={articles} ref={this.setListRef} />
+        <Filters articles={articles} />
+        <ArticleList articles={articles} />
         <ArticlesChart articles={articles} />
       </div>
     )
-  }
-
-  setListRef = (ref) => {
-    window.articleList = ref
   }
 }
 

@@ -2,11 +2,17 @@ import React, { Component } from 'react'
 import DayPicker, { DateUtils } from 'react-day-picker'
 
 import 'react-day-picker/lib/style.css'
+import PropTypes from 'prop-types'
 
 class DateRange extends Component {
   state = {
     from: null,
     to: null
+  }
+
+  static propTypes = {
+    from: PropTypes.instanceOf(Date),
+    to: PropTypes.instanceOf(Date)
   }
 
   handleDayClick = (day) =>

@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import PropTypes from 'prop-types'
 
 class SelectFilter extends Component {
   state = {
     selected: null
+  }
+
+  static propTypes = {
+    selected: PropTypes.array
   }
 
   handleChange = (selected) => this.setState({ selected })

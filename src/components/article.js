@@ -2,13 +2,8 @@ import React, { PureComponent } from 'react'
 import CommentsList from './comments-list'
 
 class Article extends PureComponent {
-  state = {
-    commentsIsOpen: false
-  }
-
   render() {
     const { article, isOpen } = this.props
-    const { commentsIsOpen } = this.state
     let comments = article.comments ? (
       <CommentsList comments={article.comments} />
     ) : null
@@ -27,18 +22,12 @@ class Article extends PureComponent {
           </button>
         </h4>
         {this.body}
-        <button onClick={this.toggleComments}>
-          {commentsIsOpen ? 'Hide comments' : 'Show comments'}
-        </button>
-        {commentsIsOpen ? comments : null}
+        {comments}
       </div>
     )
   }
 
   handleClick = () => this.props.toggleOpen(this.props.article.id)
-
-  toggleComments = () =>
-    this.setState({ commentsIsOpen: !this.state.commentsIsOpen })
 
   get body() {
     const { isOpen, article } = this.props

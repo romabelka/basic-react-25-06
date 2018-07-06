@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import CommentList from '../comment-list'
+import CommentList from '../comment-list/index'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 

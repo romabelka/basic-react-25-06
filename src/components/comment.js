@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 class Comment extends Component {
   static propTypes = {
     id: PropTypes.string,
-    text: PropTypes.string.isRequired,
-    user: PropTypes.string.isRequired
+    text: PropTypes.string,
+    user: PropTypes.string
   }
 
   render() {

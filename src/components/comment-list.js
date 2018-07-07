@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Comment from './comment'
 import toggler from '../decorators/toggler'
 
-class CommentsList extends Component {
+class CommentList extends Component {
+  static propTypes = {
+    comments: PropTypes.array.isRequired,
+    //from toggleOpen decorator
+    isOpen: PropTypes.bool,
+    toggle: PropTypes.func
+  }
+
   render() {
-    const { isOpen } = this.props
+    const { isOpen, toggle } = this.props
 
     return (
       <div>
-        <button onClick={this.props.toggle}>
+        <button onClick={toggle}>
           {isOpen ? 'Hide comments' : 'Show comments'}
         </button>
         {isOpen ? <ul>{this.comments}</ul> : null}
@@ -25,4 +33,4 @@ class CommentsList extends Component {
   }
 }
 
-export default toggler(CommentsList)
+export default toggler(CommentList)

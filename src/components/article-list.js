@@ -8,7 +8,9 @@ export class ArticleList extends Component {
     articles: PropTypes.array.isRequired,
     //props from decorator
     openItemId: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    toggleOpenItem: PropTypes.func
+    toggleOpenItem: PropTypes.func,
+    //for test
+    isTest: PropTypes.bool
   }
 
   componentDidMount() {
@@ -16,7 +18,6 @@ export class ArticleList extends Component {
   }
 
   render() {
-    console.log(this.props)
     return <ul>{this.articles}</ul>
   }
 
@@ -27,6 +28,7 @@ export class ArticleList extends Component {
           article={article}
           isOpen={this.props.openItemId === article.id}
           toggleOpen={this.props.toggleOpenItem}
+          isTest={this.props.isTest}
         />
       </li>
     ))

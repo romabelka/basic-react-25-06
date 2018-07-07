@@ -64,9 +64,6 @@ describe('ArticleList', () => {
 
   it('Коммент закрывается при закрытии статьи', () => {
     const wrapper = mount(<ArticleList isTest={true} articles={articles} />)
-    // я так понял из-за анимации не успевает сработать,
-    // пришлось передать доп. проп (если тест то убираем анимашку)
-    // это норм решение или есть получше?
 
     wrapper
       .find('.test--article__btn')
@@ -107,5 +104,24 @@ describe('ArticleList', () => {
     expect(wrapper.find('.test--coment').length).toEqual(
       articles[0].comments.length
     )
+  })
+
+  it('Статья закрывается', () => {
+    const wrapper = mount(<ArticleList isTest={true} articles={articles} />)
+    // я так понял из-за анимации не успевает сработать,
+    // пришлось передать доп. проп (если тест то убираем анимашку)
+    // это норм решение или есть получше?
+
+    wrapper
+      .find('.test--article__btn')
+      .at(0)
+      .simulate('click')
+
+    wrapper
+      .find('.test--article__btn')
+      .at(0)
+      .simulate('click')
+
+    expect(wrapper.find('.test--article__body').length).toEqual(0)
   })
 })

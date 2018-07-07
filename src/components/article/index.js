@@ -25,8 +25,8 @@ class Index extends PureComponent {
         </h3>
         <CSSTransition
           transitionName="article"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
+          transitionEnterTimeout={700}
+          transitionLeaveTimeout={500}
         >
           {this.body}
         </CSSTransition>

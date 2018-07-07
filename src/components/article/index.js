@@ -4,7 +4,7 @@ import CommentList from '../comment-list/index'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 
-class Index extends PureComponent {
+class Article extends PureComponent {
   state = {
     error: null
   }
@@ -49,7 +49,7 @@ class Index extends PureComponent {
   }
 }
 
-Index.propTypes = {
+Article.propTypes = {
   article: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string.isRequired,
@@ -61,4 +61,4 @@ Index.propTypes = {
   toggleOpen: PropTypes.func.isRequired
 }
 
-export default Index
+export default Article

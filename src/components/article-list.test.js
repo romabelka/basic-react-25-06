@@ -34,6 +34,32 @@ describe('ArticleList', () => {
     expect(wrapper.find('.test--article__body').length).toEqual(1)
   })
 
+  it('should close article on click', () => {
+    const wrapper = mount(<WrappedArticleList articles={articles} />)
+
+    const delay = (ms) =>
+      new Promise((resolve, reject) => {
+        setTimeout(resolve, ms)
+      })
+
+    const clickButton = () => {
+      wrapper
+        .find('.test--article__btn')
+        .at(0)
+        .simulate('click')
+    }
+
+    clickButton()
+
+    delay(600)
+      .then(clickButton())
+      .then(
+        delay(600).then(
+          expect(wrapper.find('.test--article__body').length).toEqual(0)
+        )
+      )
+  })
+
   it('should call fetchData on init', (done) => {
     mount(<WrappedArticleList articles={articles} fetchData={() => done()} />)
   })

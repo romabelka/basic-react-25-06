@@ -15,20 +15,14 @@ class Index extends PureComponent {
 
   render() {
     const { article, isOpen } = this.props
-
     return (
       <div className="test--article__container">
-        <h4>
+        <h3>
           {article.title}
-          <button
-            onClick={this.handleClick}
-            className={`btn btn-xs btn-default btn-info${
-              isOpen ? ' active' : ''
-            }`}
-          >
+          <button onClick={this.handleClick} className="test--article__btn">
             {isOpen ? 'close' : 'open'}
           </button>
-        </h4>
+        </h3>
         <CSSTransition
           transitionName="article"
           transitionEnterTimeout={500}

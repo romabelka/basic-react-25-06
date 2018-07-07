@@ -1,12 +1,9 @@
 import React from 'react'
 
-function Comment(props) {
+function Comment({ comment }) {
   return (
     <div>
-      <span>
-        <i>{props.user}</i>
-      </span>
-      <p>{props.text}</p>
+      {comment.text} <b>by {comment.user}</b>
     </div>
   )
 }

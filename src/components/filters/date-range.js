@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import DayPickerInput from 'react-day-picker/DayPickerInput'
+import DayPicker, { DateUtils } from 'react-day-picker'
+
 import 'react-day-picker/lib/style.css'
 
 class DateRange extends Component {
@@ -8,40 +9,20 @@ class DateRange extends Component {
     to: null
   }
 
-  handleFromChange = (from) => this.setState({ from })
-
-  handleToChange = (to) => this.setState({ to })
+  handleDayClick = (day) =>
+    this.setState(DateUtils.addDayToRange(day, this.state))
 
   render() {
     const { from, to } = this.state
-    const modifiers = { start: from, end: to }
+    const selectedRange =
+      from && to && `${from.toDateString()} - ${to.toDateString()}`
     return (
-      <div>
-        <DayPickerInput
-          value={from}
-          placeholder="From"
-          onDayChange={this.handleFromChange}
-          dayPickerProps={{
-            selectedDays: [from, { from, to }],
-            disabledDays: { after: to },
-            toMonth: to,
-            onDayClick: () => this.to.getInput().focus(),
-            modifiers
-          }}
+      <div className="date-range">
+        <DayPicker
+          selectedDays={(day) => DateUtils.isDayInRange(day, { from, to })}
+          onDayClick={this.handleDayClick}
         />
-        <DayPickerInput
-          value={to}
-          placeholder="To"
-          onDayChange={this.handleToChange}
-          ref={(el) => (this.to = el)}
-          dayPickerProps={{
-            selectedDays: [from, { from, to }],
-            disabledDays: { before: from },
-            month: from,
-            fromMonth: from,
-            modifiers
-          }}
-        />
+        {selectedRange}
       </div>
     )
   }

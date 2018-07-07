@@ -7,16 +7,9 @@ class Filters extends Component {
 
   render() {
     return (
-      <div className="row navbar-form">
-        <div class="col-md-6">
-          <SelectFilter
-            articles={this.props.articles}
-            className="col-md-6 col-lg-offset-0"
-          />
-        </div>
-        <div class="col-md-6">
-          <DateRange />
-        </div>
+      <div>
+        <SelectFilter articles={this.props.articles} />
+        <DateRange />
       </div>
     )
   }

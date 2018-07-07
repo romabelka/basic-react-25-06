@@ -8,12 +8,12 @@ export class ArticleList extends Component {
   }
 
   render() {
-    return <ul className="list-group">{this.articles}</ul>
+    return <ul>{this.articles}</ul>
   }
 
   get articles() {
     return this.props.articles.map((article) => (
-      <li key={article.id} className="list-group-item article-list__item">
+      <li key={article.id} className="test--article-list__item">
         <Article
           article={article}
           isOpen={this.props.openItemId === article.id}

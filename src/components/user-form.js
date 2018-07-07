@@ -6,9 +6,9 @@ class UserForm extends Component {
   }
   render() {
     return (
-      <form className="navbar-form">
+      <div>
         Username: <input value={this.state.user} onChange={this.handleChange} />
-      </form>
+      </div>
     )
   }
 

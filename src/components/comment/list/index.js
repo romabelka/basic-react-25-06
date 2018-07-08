@@ -8,10 +8,10 @@ import './style.css'
 export class CommentList extends Component {
   static propTypes = {
     comments: PropTypes.array.isRequired,
+    disableAnimation: PropTypes.bool,
     //from toggleOpen decorator
     isOpen: PropTypes.bool,
-    toggleOpen: PropTypes.func,
-    disableAnimation: PropTypes.bool
+    toggleOpen: PropTypes.func
   }
 
   /*

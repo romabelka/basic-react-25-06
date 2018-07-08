@@ -1,11 +1,17 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import CommentList from '../comment/list'
-import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import Animation from '../animation'
 
 class Index extends PureComponent {
+  static propTypes = {
+    article: PropTypes.object,
+    disableAnimation: PropTypes.bool,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func
+  }
+
   state = {
     error: null
   }

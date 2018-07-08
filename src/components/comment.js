@@ -2,7 +2,7 @@ import React from 'react'
 
 function Comment({ comment }) {
   return (
-    <div>
+    <div className="test--comment__body">
       {comment.text} <b>by {comment.user}</b>
     </div>
   )

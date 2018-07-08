@@ -8,7 +8,7 @@ export class ArticleList extends Component {
     articles: PropTypes.array.isRequired,
     fetchData: PropTypes.func,
     //from accordion decorator
-    openItemId: PropTypes.number.isRequired,
+    openItemId: PropTypes.string,
     toggleOpenItem: PropTypes.func
   }
 

@@ -34,7 +34,7 @@ describe('ArticleList', () => {
     expect(wrapper.find('.test--article__body').length).toEqual(1)
   })
 
-  it.only('should close article on click', () => {
+  it('should close article on click', () => {
     const wrapper = mount(<WrappedArticleList articles={articles} />)
     const button = wrapper.find('.test--article__btn').at(0)
 

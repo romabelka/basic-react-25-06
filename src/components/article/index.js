@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import CommentList from '../comment-list'
+import CommentList from '../comment/comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 
@@ -23,13 +23,13 @@ class Index extends PureComponent {
             {isOpen ? 'close' : 'open'}
           </button>
         </h3>
-        <CSSTransition
-          transitionName="article"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-          {this.body}
-        </CSSTransition>
+        {/*<CSSTransition*/}
+        {/*transitionName="article"*/}
+        {/*transitionEnterTimeout={500}*/}
+        {/*transitionLeaveTimeout={300}*/}
+        {/*>*/}
+        {this.body}
+        {/*</CSSTransition>*/}
       </div>
     )
   }

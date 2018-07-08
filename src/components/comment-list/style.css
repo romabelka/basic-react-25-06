@@ -1,0 +1,23 @@
+.comments-enter {
+    opacity: 0.01;
+    transform: scale(0);
+    transform-origin: left top
+}
+
+.comments-enter.comments-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 700ms ease-in;
+}
+
+.comments-leave {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: left top
+}
+
+.comments-leave.comments-leave-active {
+    opacity: 0.01;
+    transform: scale(0);
+    transition: all 500ms ease-in;
+}

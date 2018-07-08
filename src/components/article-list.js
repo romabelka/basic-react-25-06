@@ -16,6 +16,7 @@ export class ArticleList extends Component {
       <li key={article.id} className="test--article-list__item">
         <Article
           article={article}
+          disableAnimation={this.props.disableAnimation}
           isOpen={this.props.openItemId === article.id}
           toggleOpen={this.props.toggleOpenItem}
         />

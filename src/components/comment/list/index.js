@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Comment from '../index'
 import toggleOpen from '../../../decorators/toggleOpen'
-import CSSTransition from 'react-addons-css-transition-group'
+import Animation from '../../animation'
 import './style.css'
 
 export class CommentList extends Component {
@@ -21,7 +21,7 @@ export class CommentList extends Component {
 */
 
   render() {
-    const { isOpen, toggleOpen } = this.props
+    const { isOpen, toggleOpen, disableAnimation } = this.props
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
@@ -29,13 +29,20 @@ export class CommentList extends Component {
           {text}
         </button>
 
-        {this.getBody()}
+        <Animation
+          transitionName="comment-list"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}
+          disableAnimation={disableAnimation}
+        >
+          {this.getBody()}
+        </Animation>
       </div>
     )
   }
 
   getBody() {
-    const { comments, isOpen, disableAnimation } = this.props
+    const { comments, isOpen } = this.props
     if (!isOpen) return null
 
     const body = comments.length ? (
@@ -50,19 +57,7 @@ export class CommentList extends Component {
       <h3 className="test--comment-list__no-comments">No comments yet</h3>
     )
 
-    if (disableAnimation) {
-      return <div>{body}</div>
-    }
-
-    return (
-      <CSSTransition
-        transitionName="comment-list"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}
-      >
-        <div>{body}</div>
-      </CSSTransition>
-    )
+    return <div>{body}</div>
   }
 }
 

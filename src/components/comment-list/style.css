@@ -1,0 +1,17 @@
+.comment-list-enter {
+    transform: translate(100%);
+}
+
+.comment-list-enter.comment-list-enter-active {
+    transform: translate(0%);
+    transition: transform 1000ms ease-in-out;
+}
+
+.comment-list-leave {
+    transform: translate(0%);
+}
+
+.comment-list-leave.comment-list-leave-active {
+    transform: translate(-100%);
+    transition: transform 1000ms ease-in-out;
+}

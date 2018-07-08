@@ -23,13 +23,13 @@ class Index extends PureComponent {
             {isOpen ? 'close' : 'open'}
           </button>
         </h3>
-        <CSSTransition
+        {/*<CSSTransition
           transitionName="article"
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}
-        >
-          {this.body}
-        </CSSTransition>
+        >*/}
+        {this.body}
+        {/*</CSSTransition>*/}
       </div>
     )
   }

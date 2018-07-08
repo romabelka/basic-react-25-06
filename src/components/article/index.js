@@ -5,6 +5,12 @@ import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 
 class Index extends PureComponent {
+  static propTypes = {
+    article: PropTypes.object,
+    disableAnimation: PropTypes.bool,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func
+  }
   state = {
     error: null
   }

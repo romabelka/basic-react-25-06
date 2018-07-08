@@ -3,8 +3,11 @@ import ArticleList from './components/article-list'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
 import Filters from './components/filters'
-
+import PropTypes from 'prop-types'
 class App extends Component {
+  static propTypes = {
+    articles: PropTypes.array
+  }
   render() {
     const { articles } = this.props
     return (

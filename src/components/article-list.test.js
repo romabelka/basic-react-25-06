@@ -37,4 +37,16 @@ describe('ArticleList', () => {
   it('should call fetchData on init', (done) => {
     mount(<WrappedArticleList articles={articles} fetchData={() => done()} />)
   })
+
+  it('should close article on click', () => {
+    const wrapper = mount(<WrappedArticleList articles={articles} />)
+
+    wrapper
+      .find('.test--article__btn')
+      .at(0)
+      .simulate('click')
+      .simulate('click')
+
+    expect(wrapper.state().openItemId).toEqual(null)
+  })
 })

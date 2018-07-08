@@ -5,7 +5,7 @@ import toggleOpen from '../../decorators/toggleOpen'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 
-class CommentList extends Component {
+export class CommentList extends Component {
   static propTypes = {
     comments: PropTypes.array,
     //from toggleOpen decorator

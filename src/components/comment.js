@@ -10,7 +10,7 @@ class Comment extends PureComponent {
     const { comment } = this.props
 
     return (
-      <div>
+      <div className="test--comment-list__item">
         {comment.text} <b>by {comment.user}</b>
       </div>
     )

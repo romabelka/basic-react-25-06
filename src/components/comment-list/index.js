@@ -5,7 +5,7 @@ import toggleOpen from '../../decorators/toggleOpen'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 
-class CommentList extends Component {
+export class CommentList extends Component {
   /*
   static defaultProps = {
     comments: []
@@ -17,7 +17,9 @@ class CommentList extends Component {
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
-        <button onClick={toggleOpen}>{text}</button>
+        <button onClick={toggleOpen} className="test--comment-list__button">
+          {text}
+        </button>
 
         <CSSTransition
           transitionName="comment-list"
@@ -34,17 +36,18 @@ class CommentList extends Component {
     const { comments, isOpen } = this.props
     if (!isOpen) return null
 
-    const body = comments.length ? (
-      <ul>
-        {comments.map((comment) => (
-          <li key={comment.id}>
-            <Comment comment={comment} />
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <h3>No comments yet</h3>
-    )
+    const body =
+      comments && comments.length ? (
+        <ul>
+          {comments.map((comment) => (
+            <li key={comment.id} className="test--comment-list__item">
+              <Comment comment={comment} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <h3 className="test--comment-list__body_alt">No comments yet</h3>
+      )
 
     return <div>{body}</div>
   }
@@ -57,9 +60,10 @@ CommentList.propTypes = {
       text: PropTypes.string,
       user: PropTypes.string
     }).isRequired
-  ).isRequired,
+  ),
   //from toggleOpen decorator
   isOpen: PropTypes.bool,
   toggleOpen: PropTypes.func
 }
+
 export default toggleOpen(CommentList)

@@ -37,4 +37,19 @@ describe('ArticleList', () => {
   it('should call fetchData on init', (done) => {
     mount(<WrappedArticleList articles={articles} fetchData={() => done()} />)
   })
+
+  it('should toggle article on click', () => {
+    const wrapper = mount(
+      <WrappedArticleList articles={articles} disableAnimation={true} />
+    )
+    const button = wrapper.find('.test--article__btn').at(0)
+
+    button.simulate('click')
+
+    expect(wrapper.find('.test--article__body').length).toEqual(1)
+
+    button.simulate('click')
+
+    expect(wrapper.find('.test--article__body').length).toEqual(0)
+  })
 })

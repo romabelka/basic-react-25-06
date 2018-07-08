@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
 import Article from './article'
 import accordion from '../decorators/accordion'
+import PropTypes from 'prop-types'
 
 export class ArticleList extends Component {
+  static propTypes = {
+    articles: PropTypes.array,
+    disableAnimation: PropTypes.bool,
+    openItemId: PropTypes.string,
+    toggleOpenItem: PropTypes.func
+  }
+
   componentDidMount() {
     this.props.fetchData && this.props.fetchData()
   }
@@ -16,6 +24,7 @@ export class ArticleList extends Component {
       <li key={article.id} className="test--article-list__item">
         <Article
           article={article}
+          disableAnimation={this.props.disableAnimation}
           isOpen={this.props.openItemId === article.id}
           toggleOpen={this.props.toggleOpenItem}
         />

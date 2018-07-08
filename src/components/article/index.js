@@ -1,10 +1,17 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import CommentList from '../comment-list'
-import CSSTransition from 'react-addons-css-transition-group'
+import CommentList from '../comment/list'
 import './style.css'
+import Animation from '../animation'
 
 class Index extends PureComponent {
+  static propTypes = {
+    article: PropTypes.object,
+    disableAnimation: PropTypes.bool,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func
+  }
+
   state = {
     error: null
   }
@@ -14,7 +21,7 @@ class Index extends PureComponent {
   }
 
   render() {
-    const { article, isOpen } = this.props
+    const { article, isOpen, disableAnimation } = this.props
     return (
       <div className="test--article__container">
         <h3>
@@ -23,13 +30,14 @@ class Index extends PureComponent {
             {isOpen ? 'close' : 'open'}
           </button>
         </h3>
-        <CSSTransition
-          transitionName="article"
+        <Animation
+          transitionName="comment-list"
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}
+          disableAnimation={disableAnimation}
         >
           {this.body}
-        </CSSTransition>
+        </Animation>
       </div>
     )
   }

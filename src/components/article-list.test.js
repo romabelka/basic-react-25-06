@@ -34,6 +34,14 @@ describe('ArticleList', () => {
     expect(wrapper.find('.test--article__body').length).toEqual(1)
   })
 
+  it.only('should close article on click', () => {
+    const wrapper = mount(<WrappedArticleList articles={articles} />)
+    const button = wrapper.find('.test--article__btn').at(0)
+
+    button.simulate('click').simulate('click')
+    expect(wrapper.state().openItemId).toEqual(null)
+  })
+
   it('should call fetchData on init', (done) => {
     mount(<WrappedArticleList articles={articles} fetchData={() => done()} />)
   })

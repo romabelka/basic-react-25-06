@@ -34,7 +34,7 @@ describe('CommentsList', () => {
     expect(wrapper.find('.test--comments__container').length).toEqual(1)
   })
 
-  it('should closed comments on click', () => {
+  it('should close comments on click', () => {
     wrapper = mount(<CommentList comments={article.comments} isOpen />)
     wrapper
       .find('.test--comments__btn')

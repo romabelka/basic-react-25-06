@@ -33,6 +33,18 @@ describe('ArticleList', () => {
 
     expect(wrapper.find('.test--article__body').length).toEqual(1)
   })
+  it('should close article on click', () => {
+    const wrapper = mount(<WrappedArticleList articles={articles} />)
+    wrapper
+      .setState({
+        openItemId: '56c782f18990ecf954f6e027'
+      })
+      .find('.test--article__btn')
+      .at(0)
+      .simulate('click')
+
+    expect(wrapper.find('.test--article__body').length).toEqual(0)
+  })
 
   it('should call fetchData on init', (done) => {
     mount(<WrappedArticleList articles={articles} fetchData={() => done()} />)

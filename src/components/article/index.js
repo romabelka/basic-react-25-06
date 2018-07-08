@@ -14,7 +14,7 @@ class Index extends PureComponent {
   }
 
   render() {
-    const { article, isOpen } = this.props
+    const { article, isOpen, isTest } = this.props
     return (
       <div className="test--article__container">
         <h3>
@@ -23,13 +23,17 @@ class Index extends PureComponent {
             {isOpen ? 'close' : 'open'}
           </button>
         </h3>
-        <CSSTransition
-          transitionName="article"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-          {this.body}
-        </CSSTransition>
+        {!isTest ? (
+          <CSSTransition
+            transitionName="article"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+          >
+            {this.body}
+          </CSSTransition>
+        ) : (
+          this.body
+        )}
       </div>
     )
   }

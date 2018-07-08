@@ -24,7 +24,9 @@ class Index extends Component {
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
-        <button onClick={toggleOpen}>{text}</button>
+        <button onClick={toggleOpen} className="test--comment-list__btn">
+          {text}
+        </button>
         <CSSTransition
           transitionName="comment-list"
           transitionEnterTimeout={500}
@@ -41,9 +43,9 @@ class Index extends Component {
     if (!isOpen) return null
 
     const body = comments.length ? (
-      <ul>
+      <ul className="test--comment-list__body">
         {comments.map((comment) => (
-          <li key={comment.id}>
+          <li key={comment.id} className="test--comment-list__item">
             <Comment comment={comment} />
           </li>
         ))}

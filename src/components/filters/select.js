@@ -1,7 +1,26 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import PropTypes from 'prop-types'
 
 class SelectFilter extends Component {
+  static propTypes = {
+    articles: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        title: PropTypes.string,
+        text: PropTypes.string.isRequired,
+        comments: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            user: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired
+          })
+        )
+      })
+    ).isRequired
+  }
+
   state = {
     selected: null
   }

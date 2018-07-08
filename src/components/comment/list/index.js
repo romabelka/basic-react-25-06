@@ -5,12 +5,13 @@ import toggleOpen from '../../../decorators/toggleOpen'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 
-class CommentList extends Component {
+export class CommentList extends Component {
   static propTypes = {
     comments: PropTypes.array.isRequired,
     //from toggleOpen decorator
     isOpen: PropTypes.bool,
-    toggleOpen: PropTypes.func
+    toggleOpen: PropTypes.func,
+    disableAnimation: PropTypes.bool
   }
 
   /*
@@ -24,35 +25,44 @@ class CommentList extends Component {
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
-        <button onClick={toggleOpen}>{text}</button>
-        <CSSTransition
-          transitionName="comment-list"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-          {this.getBody()}
-        </CSSTransition>
+        <button className="test--comment-list__open-btn" onClick={toggleOpen}>
+          {text}
+        </button>
+
+        {this.getBody()}
       </div>
     )
   }
 
   getBody() {
-    const { comments, isOpen } = this.props
+    const { comments, isOpen, disableAnimation } = this.props
     if (!isOpen) return null
 
     const body = comments.length ? (
       <ul>
         {comments.map((comment) => (
-          <li key={comment.id}>
+          <li key={comment.id} className="test--comment-list__item">
             <Comment comment={comment} />
           </li>
         ))}
       </ul>
     ) : (
-      <h3>No comments yet</h3>
+      <h3 className="test--comment-list__no-comments">No comments yet</h3>
     )
 
-    return <div>{body}</div>
+    if (disableAnimation) {
+      return <div>{body}</div>
+    }
+
+    return (
+      <CSSTransition
+        transitionName="comment-list"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+      >
+        <div>{body}</div>
+      </CSSTransition>
+    )
   }
 }
 

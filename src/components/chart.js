@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
 export default class ArticlesChart extends Component {
+  static propTypes = {}
+
   render() {
     return <div ref={this.setContainerRef} />
   }

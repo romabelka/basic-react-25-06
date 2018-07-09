@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-function Comment({ comment }) {
-  return (
-    <div>
-      {comment.text} <b>by {comment.user}</b>
-    </div>
-  )
+class Comment extends Component {
+  static propTypes = {
+    id: PropTypes.string,
+    text: PropTypes.string,
+    user: PropTypes.string
+  }
+
+  render() {
+    const { comment } = this.props
+
+    return (
+      <div>
+        {comment.text} <b>by {comment.user}</b>
+      </div>
+    )
+  }
 }
 
 export default Comment

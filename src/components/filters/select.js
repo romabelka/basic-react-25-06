@@ -1,30 +1,27 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import { connect } from 'react-redux'
+import { setSelectOptions } from '../../ac'
 
 class SelectFilter extends Component {
-  state = {
-    selected: null
-  }
-
-  handleChange = (selected) => this.setState({ selected })
-
-  get options() {
-    return this.props.articles.map((article) => ({
-      label: article.title,
-      value: article.id
-    }))
-  }
-
   render() {
+    const { selectOptions, selectValue, setSelectOptions } = this.props
+
     return (
       <Select
-        options={this.options}
-        value={this.state.selected}
-        onChange={this.handleChange}
+        options={selectOptions}
+        value={selectValue}
+        onChange={setSelectOptions}
         isMulti
       />
     )
   }
 }
 
-export default SelectFilter
+export default connect(
+  ({ filters: { selectOptions, selectValue } }) => ({
+    selectOptions,
+    selectValue
+  }),
+  { setSelectOptions }
+)(SelectFilter)

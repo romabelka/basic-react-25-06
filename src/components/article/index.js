@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import CommentList from '../comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
-import './style.css'
 
 class Index extends PureComponent {
   state = {
@@ -24,9 +23,9 @@ class Index extends PureComponent {
           </button>
         </h3>
         <CSSTransition
-          transitionName="article"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
+          transitionName="fade"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={1}
         >
           {this.body}
         </CSSTransition>

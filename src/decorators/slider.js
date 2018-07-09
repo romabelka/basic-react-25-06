@@ -3,31 +3,10 @@ import CSSTransition from 'react-addons-css-transition-group'
 
 export default (OriginalComponent) =>
   class slider extends React.Component {
-    components = [
-      () => (
-        <OriginalComponent
-          {...this.props}
-          {...this.state}
-          previousSlide={this.previousSlide}
-          nextSlide={this.nextSlide}
-          createSlider={this.createSlider}
-        />
-      ),
-      () => (
-        <OriginalComponent
-          {...this.props}
-          {...this.state}
-          previousSlide={this.previousSlide}
-          nextSlide={this.nextSlide}
-          createSlider={this.createSlider}
-        />
-      )
-    ]
-
     state = {
       currentIndex: 0,
       items: [],
-      component: 0
+      num: 0
     }
 
     createSlider = (items) => {
@@ -42,7 +21,7 @@ export default (OriginalComponent) =>
 
       this.setState({
         currentIndex: index,
-        component: (this.state.component + 1) % 2
+        num: (this.state.num + 1) % 2
       })
     }
 
@@ -54,19 +33,25 @@ export default (OriginalComponent) =>
 
       this.setState({
         currentIndex: index,
-        component: (this.state.component + 1) % 2
+        num: (this.state.num + 1) % 2
       })
     }
 
     render() {
-      const Comp = this.components[this.state.component]
       return (
         <CSSTransition
           transitionName="fade"
           transitionEnterTimeout={300}
           transitionLeaveTimeout={1}
         >
-          <Comp key={this.state.component} />
+          <OriginalComponent
+            key={this.state.num}
+            {...this.props}
+            {...this.state}
+            previousSlide={this.previousSlide}
+            nextSlide={this.nextSlide}
+            createSlider={this.createSlider}
+          />
         </CSSTransition>
       )
     }

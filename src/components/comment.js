@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-function Comment({ comment }) {
-  return (
-    <div>
-      {comment.text} <b>by {comment.user}</b>
-    </div>
-  )
+class Comment extends Component {
+  componentDidMount() {
+    console.log(1)
+  }
+  render() {
+    const { comment } = this.props
+    return (
+      <div>
+        {comment.text} <b>by {comment.user}</b>
+      </div>
+    )
+  }
 }
 
 export default Comment

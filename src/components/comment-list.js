@@ -38,34 +38,20 @@ class CommentList extends Component {
 
   componentDidMount() {
     const { comments } = this.props
+    console.log(this.props)
     this.props.createSlider(comments)
   }
 
   get comments() {
-    const {
-      comments,
-      isOpen,
-      items,
-      currentIndex,
-      previousSlide,
-      nextSlide
-    } = this.props
+    const { isOpen, items, currentIndex, previousSlide, nextSlide } = this.props
     if (!isOpen || !items.length) return null
 
-    const body = comments.length ? (
+    const body = items.length ? (
       <div>
         <div onClick={previousSlide}>prev</div>
         <div onClick={nextSlide}>next</div>
-        {/*
-        <CSSTransition
-          transitionName="fade"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={1}>
-        */}
-        <Comment comment={comments[currentIndex]} />
-        {/* 
-        </CSSTransition> 
-        */}
+
+        <Comment comment={items[currentIndex]} />
       </div>
     ) : (
       <h3>No comments yet</h3>

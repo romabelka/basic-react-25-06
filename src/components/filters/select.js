@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
-import { connect } from 'react-redux'
-import { changeFilters } from '../../ac'
 
 class SelectFilter extends Component {
   handleChange = (selected) => {
@@ -29,10 +27,4 @@ class SelectFilter extends Component {
   }
 }
 
-export default connect(
-  (state) => {
-    const { articles, filters } = state
-    return { articles, filters }
-  },
-  { changeFilters }
-)(SelectFilter)
+export default SelectFilter

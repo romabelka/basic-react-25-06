@@ -2,7 +2,7 @@ import {
   INCREMENT,
   DELETE_ARTICLE,
   SET_DATE_RANGE,
-  SET_SELECT_OPTIONS
+  SET_SELECT_VALUE
 } from '../constants'
 
 export function increment() {
@@ -31,13 +31,13 @@ export function setDateRange(range) {
 }
 
 /**
- * Устанавливает опции селекта
- * @param {array} options - опции.
+ * Устанавливает значение селекта
+ * @param {array} value - значение.
  * @returns {object} action
  */
-export function setSelectOptions(options) {
+export function setSelectValue(value) {
   return {
-    type: SET_SELECT_OPTIONS,
-    payload: options
+    type: SET_SELECT_VALUE,
+    payload: value
   }
 }

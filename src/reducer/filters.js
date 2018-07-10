@@ -1,17 +1,10 @@
-import { SET_DATE_RANGE, SET_SELECT_OPTIONS } from '../constants'
-import articles from '../fixtures'
-
-const selectOptions = articles.map(({ title, id }) => ({
-  label: title,
-  value: id
-}))
+import { SET_DATE_RANGE, SET_SELECT_VALUE, DELETE_ARTICLE } from '../constants'
 
 const initialState = {
   dateRange: {
     from: null,
     to: null
   },
-  selectOptions,
   selectValue: []
 }
 
@@ -25,10 +18,18 @@ export default (state = initialState, action) => {
         dateRange: payload
       }
 
-    case SET_SELECT_OPTIONS:
+    case SET_SELECT_VALUE:
       return {
         ...state,
         selectValue: payload
+      }
+
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        selectValue: state.selectValue.filter(
+          ({ value }) => value !== payload.id
+        )
       }
 
     default:

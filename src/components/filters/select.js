@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import { connect } from 'react-redux'
+import { changeFilters } from '../../ac'
 
 class SelectFilter extends Component {
-  state = {
-    selected: null
+  handleChange = (selected) => {
+    this.props.changeFilters({
+      selectedArticles: selected
+    })
   }
-
-  handleChange = (selected) => this.setState({ selected })
 
   get options() {
     return this.props.articles.map((article) => ({
@@ -19,7 +21,7 @@ class SelectFilter extends Component {
     return (
       <Select
         options={this.options}
-        value={this.state.selected}
+        value={this.props.filters.selectedArticles}
         onChange={this.handleChange}
         isMulti
       />
@@ -27,4 +29,10 @@ class SelectFilter extends Component {
   }
 }
 
-export default SelectFilter
+export default connect(
+  (state) => {
+    const { articles, filters } = state
+    return { articles, filters }
+  },
+  { changeFilters }
+)(SelectFilter)

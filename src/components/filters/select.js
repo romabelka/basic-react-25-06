@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import Select from 'react-select'
 
 class SelectFilter extends Component {
-  state = {
-    selected: null
+  handleChange = (selected) => {
+    this.props.changeFilters({
+      selectedArticles: selected
+    })
   }
-
-  handleChange = (selected) => this.setState({ selected })
 
   get options() {
     return this.props.articles.map((article) => ({
@@ -19,7 +19,7 @@ class SelectFilter extends Component {
     return (
       <Select
         options={this.options}
-        value={this.state.selected}
+        value={this.props.filters.selectedArticles}
         onChange={this.handleChange}
         isMulti
       />

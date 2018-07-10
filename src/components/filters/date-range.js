@@ -4,16 +4,14 @@ import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 
 class DateRange extends Component {
-  state = {
-    from: null,
-    to: null
+  handleDayClick = (day) => {
+    const { filters, changeFilters } = this.props
+    const range = DateUtils.addDayToRange(day, filters)
+    changeFilters(range)
   }
 
-  handleDayClick = (day) =>
-    this.setState(DateUtils.addDayToRange(day, this.state))
-
   render() {
-    const { from, to } = this.state
+    const { from, to } = this.props.filters
     const selectedRange =
       from && to && `${from.toDateString()} - ${to.toDateString()}`
     return (

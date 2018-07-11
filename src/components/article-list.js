@@ -6,7 +6,9 @@ import accordion from '../decorators/accordion'
 
 export class ArticleList extends Component {
   static propTypes = {
-    articles: PropTypes.array.isRequired,
+    articles: PropTypes.shape({
+      actual: PropTypes.array.isRequired
+    }).isRequired,
     fetchData: PropTypes.func,
 
     //from accordion decorator
@@ -23,7 +25,7 @@ export class ArticleList extends Component {
   }
 
   get articles() {
-    return this.props.articles.map((article) => (
+    return this.props.articles.actual.map((article) => (
       <li key={article.id} className="test--article-list__item">
         <Article
           article={article}

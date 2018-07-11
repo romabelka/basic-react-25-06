@@ -14,10 +14,6 @@ export class ArticleList extends Component {
     toggleItem: PropTypes.func
   }
 
-  componentDidMount() {
-    this.props.fetchData && this.props.fetchData()
-  }
-
   render() {
     return <ul>{this.articles}</ul>
   }
@@ -36,5 +32,5 @@ export class ArticleList extends Component {
 }
 
 export default connect((state) => ({
-  articles: state.articles
+  articles: state.articles.filtered
 }))(accordion(ArticleList))

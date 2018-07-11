@@ -1,34 +1,33 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import Select from 'react-select'
-import { selectFilterArticle } from './../../ac'
-import fixtures from './../../fixtures.js'
+import { connect } from 'react-redux'
+import { selectFilterArticle, dateFilterArticle } from './../../ac'
 
 class SelectFilter extends Component {
   state = {
-    selected: this.props.articles.map((article) => ({
-      label: article.title,
-      value: article.id
-    }))
+    selected: this.options
   }
 
   handleChange = (selected) => {
     this.setState({ selected }, function() {
       this.props.selectFilterArticle(selected)
+      this.props.dateFilterArticle({
+        from: null,
+        to: null
+      })
     })
   }
 
   get options() {
-    return fixtures.map((article) => ({
+    return this.props.articles.origin.map((article) => ({
       label: article.title,
       value: article.id
     }))
   }
 
   componentWillReceiveProps(nextProps) {
-    // при удалении статьи меняем выбранный масив
     this.setState({
-      selected: nextProps.articles.map((article) => ({
+      selected: nextProps.articles.filtred.map((article) => ({
         label: article.title,
         value: article.id
       }))
@@ -52,6 +51,7 @@ export default connect(
     articles: state.articles
   }),
   {
-    selectFilterArticle
+    selectFilterArticle,
+    dateFilterArticle
   }
 )(SelectFilter)

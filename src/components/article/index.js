@@ -50,6 +50,9 @@ class Article extends PureComponent {
 
     return (
       <section className="test--article__body">
+        <section style={{ 'font-weight': 'bold' }}>
+          {new Date(article.date).toDateString()}
+        </section>
         {article.text}
         {!this.state.error && <CommentList comments={article.comments} />}
       </section>

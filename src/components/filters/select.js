@@ -1,15 +1,24 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import { connect } from 'react-redux'
+import { selectArticles } from '../../ac'
 
 class SelectFilter extends Component {
-  state = {
-    selected: null
+  handleChange = (selected) => {
+    const payload = selected.map((option) => option.value)
+    const { selectArticles } = this.props
+    selectArticles(payload)
   }
 
-  handleChange = (selected) => this.setState({ selected })
-
   get options() {
-    return this.props.articles.map((article) => ({
+    return this.props.articles.available.map((article) => ({
+      label: article.title,
+      value: article.id
+    }))
+  }
+
+  get value() {
+    return this.props.articles.selected.map((article) => ({
       label: article.title,
       value: article.id
     }))
@@ -19,7 +28,7 @@ class SelectFilter extends Component {
     return (
       <Select
         options={this.options}
-        value={this.state.selected}
+        value={this.value}
         onChange={this.handleChange}
         isMulti
       />
@@ -27,4 +36,9 @@ class SelectFilter extends Component {
   }
 }
 
-export default SelectFilter
+export default connect(
+  (state) => ({
+    articles: state.articles
+  }),
+  { selectArticles }
+)(SelectFilter)

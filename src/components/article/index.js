@@ -19,6 +19,7 @@ class Article extends PureComponent {
     const { article, isOpen } = this.props
     return (
       <div className="test--article__container">
+        <h5>{new Date(article.date).toLocaleString()}</h5>
         <h3>
           {article.title}
           <button onClick={this.handleClick} className="test--article__btn">

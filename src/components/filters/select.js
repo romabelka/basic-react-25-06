@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import { connect } from 'react-redux'
 
 class SelectFilter extends Component {
   state = {
@@ -27,4 +28,6 @@ class SelectFilter extends Component {
   }
 }
 
-export default SelectFilter
+export default connect((state) => ({
+  articles: state.articles
+}))(SelectFilter)

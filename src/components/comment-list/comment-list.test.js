@@ -1,45 +1,36 @@
 import React from 'react'
-import Enzyme, { render, shallow, mount } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
-import WrappedCommentList, { CommentList } from './index'
+import { mount } from 'enzyme'
+import CommentList from './index'
 import articles from '../../fixtures'
 
-Enzyme.configure({ adapter: new Adapter() })
+describe('CommentList', () => {
+  it('should be closed by default', () => {
+    const wrapper = mount(<CommentList comments={articles[0].comments} />)
 
-describe('CommentsList', () => {
-  let wrapper
-  let article
-
-  beforeEach(() => {
-    article = articles.filter(function(item) {
-      return item.comments && item.comments.length
-    })[0]
+    expect(wrapper.find('.test--comment-list__body').length).toBe(0)
   })
 
-  it('should render a list of comments', () => {
-    wrapper = render(<CommentList comments={article.comments} isOpen />)
-    expect(wrapper.find('.test--comments__item').length).toEqual(
-      article.comments.length
+  it('should open on click', () => {
+    const wrapper = mount(<CommentList comments={articles[0].comments} />)
+
+    wrapper
+      .find('.test--comment-list__btn')
+      .at(0)
+      .simulate('click')
+
+    expect(wrapper.find('.test--comment-list__item').length).toBe(
+      articles[0].comments.length
     )
   })
 
-  it('should render comments closed by default', () => {
-    wrapper = render(<CommentList comments={article.comments} />)
-    expect(wrapper.find('.test--comments__item').length).toEqual(0)
-  })
+  it('should display an empty text', () => {
+    const wrapper = mount(<CommentList />)
 
-  it('should open comments on click', () => {
-    wrapper = mount(<CommentList comments={article.comments} isOpen />)
-    wrapper.find('.test--comments__btn').simulate('click')
-    expect(wrapper.find('.test--comments__container').length).toEqual(1)
-  })
-
-  it('should close comments on click', () => {
-    wrapper = mount(<CommentList comments={article.comments} isOpen />)
     wrapper
-      .find('.test--comments__btn')
+      .find('.test--comment-list__btn')
+      .at(0)
       .simulate('click')
-      .simulate('click')
-    expect(wrapper.props().isOpen).toEqual(true)
+
+    expect(wrapper.find('.test--comment-list__empty').length).toBe(1)
   })
 })

@@ -4,7 +4,6 @@ class UserForm extends Component {
   state = {
     user: ''
   }
-
   render() {
     return (
       <div>

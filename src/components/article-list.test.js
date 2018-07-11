@@ -1,10 +1,7 @@
 import React from 'react'
-import Enzyme, { render, shallow, mount } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { render, shallow, mount } from 'enzyme'
 import WrappedArticleList, { ArticleList } from './article-list'
 import articles from '../fixtures'
-
-Enzyme.configure({ adapter: new Adapter() })
 
 describe('ArticleList', () => {
   it('should render a list of articles', () => {
@@ -34,15 +31,34 @@ describe('ArticleList', () => {
     expect(wrapper.find('.test--article__body').length).toEqual(1)
   })
 
-  it('should close article on click', () => {
-    const wrapper = mount(<WrappedArticleList articles={articles} />)
-    const button = wrapper.find('.test--article__btn').at(0)
-
-    button.simulate('click').simulate('click')
-    expect(wrapper.state().openItemId).toEqual(null)
-  })
-
   it('should call fetchData on init', (done) => {
     mount(<WrappedArticleList articles={articles} fetchData={() => done()} />)
+  })
+
+  it('should close an article', (done) => {
+    const wrapper = mount(<WrappedArticleList articles={articles} />)
+    expect(wrapper.find('.test__article_body').length).toEqual(0)
+
+    wrapper
+      .find('.test--article__btn')
+      .at(0)
+      .simulate('click')
+    expect(wrapper.find('.test--article__body').length).toEqual(1)
+
+    wrapper
+      .find('.test--article__btn')
+      .at(0)
+      .simulate('click')
+
+    setTimeout(() => {
+      try {
+        wrapper.simulate('transitionEnd')
+
+        expect(wrapper.find('.test--article__body').length).toEqual(0)
+        done()
+      } catch (err) {
+        done.fail(err)
+      }
+    }, 800)
   })
 })

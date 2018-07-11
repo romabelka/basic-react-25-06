@@ -19,6 +19,7 @@ export class ArticleList extends Component {
   }
 
   render() {
+    console.log('---', 'rerendering article list')
     return <ul>{this.articles}</ul>
   }
 
@@ -35,6 +36,22 @@ export class ArticleList extends Component {
   }
 }
 
-export default connect((state) => ({
-  articles: state.articles
-}))(accordion(ArticleList))
+export default connect((state) => {
+  const { dateRange, selected, articles } = state
+  const { from, to } = dateRange
+  let filteredArticles = articles.slice(0)
+  if (selected) {
+    filteredArticles = filteredArticles.filter((article) =>
+      selected.map((s) => s.value).includes(article.id)
+    )
+  }
+  if (from && to) {
+    filteredArticles = filteredArticles.filter((article) => {
+      const articleDate = new Date(article.date).getTime()
+      return articleDate >= from.getTime() && articleDate <= to.getTime()
+    })
+  }
+  return {
+    articles: filteredArticles
+  }
+})(accordion(ArticleList))

@@ -3,12 +3,15 @@ import DayPicker, { DateUtils } from 'react-day-picker'
 
 import 'react-day-picker/lib/style.css'
 import { connect } from 'react-redux'
-import { selectDate } from '../../ac'
+import { selectDate, filterArticlesByDateRange } from '../../ac'
 
 class DateRange extends Component {
   handleDayClick = (day) => {
-    const { dateRange, selectDate } = this.props
-    selectDate(DateUtils.addDayToRange(day, dateRange))
+    // What is the best place to call filterArticlesByDateRange?
+    const { dateRange, selectDate, filterArticlesByDateRange } = this.props
+    const newDateRange = DateUtils.addDayToRange(day, dateRange)
+    selectDate(newDateRange)
+    filterArticlesByDateRange(newDateRange)
   }
 
   render() {
@@ -33,5 +36,5 @@ export default connect(
   (state) => ({
     dateRange: state.dateRange
   }),
-  { selectDate }
+  { selectDate, filterArticlesByDateRange }
 )(DateRange)

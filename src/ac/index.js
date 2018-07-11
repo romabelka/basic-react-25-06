@@ -2,6 +2,7 @@ import {
   INCREMENT,
   DELETE_ARTICLE,
   SELECT_ARTICLES,
+  FILTER_ARTICLES_BY_DATERANGE,
   UPDATE_ARTICLE_DATE_RANGE
 } from '../constants'
 
@@ -27,5 +28,12 @@ export function selectArticles(selected) {
   return {
     type: SELECT_ARTICLES,
     payload: selected
+  }
+}
+
+export function filterArticlesByDateRange(dateRange) {
+  return {
+    type: FILTER_ARTICLES_BY_DATERANGE,
+    payload: dateRange
   }
 }

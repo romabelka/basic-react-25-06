@@ -5,6 +5,7 @@ export default (dateRange = { from: null, to: null }, action) => {
   switch (type) {
     case UPDATE_ARTICLE_DATE_RANGE:
       var { from = dateRange.from, to = dateRange.to } = payload
+
       return { from, to }
     default:
       return dateRange

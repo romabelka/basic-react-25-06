@@ -9,7 +9,9 @@ class CommentForm extends Component {
 
   state = {
     user: '',
-    text: ''
+    text: '',
+    userValid: false,
+    textValid: false
   }
 
   render() {
@@ -26,15 +28,26 @@ class CommentForm extends Component {
           onChange={this.handleChange('user')}
           placeholder={'user'}
         />
-        <input type="submit" value="Post" />
+        <input
+          type="submit"
+          value="Post"
+          disabled={!this.state.userValid || !this.state.textValid}
+        />
       </form>
     )
   }
 
   handleChange = (element) => (ev) => {
-    this.setState({
-      [element]: ev.target.value
-    })
+    const name = element
+    const value = ev.target.value
+    this.setState(
+      {
+        [name]: value
+      },
+      () => {
+        this.validateField(name, value)
+      }
+    )
   }
 
   handleSubmit = (ev) => {
@@ -44,7 +57,30 @@ class CommentForm extends Component {
 
     this.setState({
       user: '',
-      text: ''
+      text: '',
+      userValid: false,
+      textValid: false
+    })
+  }
+
+  validateField(fieldName, value) {
+    let textValid = this.state.textValid
+    let userValid = this.state.userValid
+
+    switch (fieldName) {
+      case 'text':
+        textValid = value.length >= 1
+        break
+      case 'user':
+        userValid = value.length >= 1
+        break
+      default:
+        break
+    }
+
+    this.setState({
+      textValid: textValid,
+      userValid: userValid
     })
   }
 }

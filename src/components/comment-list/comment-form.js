@@ -11,7 +11,7 @@ class CommentForm extends Component {
   render() {
     return (
       <div>
-        Comment: <input ref='input'/>
+        Comment: <input ref='input' maxLength={10}/>
         <button onClick={this.onAddComment}>
           Send
         </button>
@@ -23,6 +23,9 @@ class CommentForm extends Component {
     ev.preventDefault()
     let { addComment, articleId } = this.props
     const commentText = this.refs.input.value
+    if (!commentText && !commentText.length){
+      return;
+    }
     addComment({articleId, commentText})
     this.refs.input.value = null
   }

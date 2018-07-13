@@ -4,10 +4,12 @@ import CSSTransition from 'react-addons-css-transition-group'
 import Comment from '../comment'
 import toggleOpen from '../../decorators/toggleOpen'
 import './style.css'
+import CommentForm from './comment-form'
 
 class CommentList extends Component {
   static propTypes = {
     comments: PropTypes.array,
+    articleId: PropTypes.string.isRequired,
     //from toggleOpen decorator
     isOpen: PropTypes.bool,
     toggleOpen: PropTypes.func
@@ -54,14 +56,18 @@ class CommentList extends Component {
   }
 
   get comments() {
+    const {articleId} = this.props
     return (
-      <ul>
-        {this.props.comments.map((id) => (
-          <li key={id} className="test--comment-list__item">
-            <Comment id={id} />
-          </li>
-        ))}
-      </ul>
+      <div>
+        <ul>
+          {this.props.comments.map((id) => (
+            <li key={id} className="test--comment-list__item">
+              <Comment id={id} />
+            </li>
+          ))}
+        </ul>
+        <CommentForm articleId={articleId}/>
+      </div>
     )
   }
 }

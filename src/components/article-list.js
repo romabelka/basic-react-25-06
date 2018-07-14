@@ -20,16 +20,18 @@ export class ArticleList extends Component {
   }
 
   render() {
-    console.log('---', 'rendering article list')
+    // console.log('---', 'rendering article list')
     return <ul>{this.articles}</ul>
   }
 
   get articles() {
-    return this.props.articles.map((article) => (
-      <li key={article.id} className="test--article-list__item">
+    // console.log(this.props.articles)
+    console.log(this.props.articles)
+    return this.props.articles.map((id) => (
+      <li key={id} className="test--article-list__item">
         <Article
-          article={article}
-          isOpen={this.props.openItemId === article.id}
+          id={id}
+          isOpen={this.props.openItemId === id}
           toggleOpen={this.props.toggleOpenItem}
         />
       </li>
@@ -38,7 +40,6 @@ export class ArticleList extends Component {
 }
 
 export default connect((state) => {
-  console.log('---', 'article-list connect')
   return {
     articles: filtratedArticlesSelector(state)
   }

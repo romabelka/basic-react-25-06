@@ -16,11 +16,11 @@ class Article extends PureComponent {
   }
 
   render() {
-    const { article, isOpen } = this.props
+    const { articles, isOpen, id } = this.props
     return (
       <div className="test--article__container">
         <h3>
-          {article.title}
+          {articles[id].title}
           <button onClick={this.handleClick} className="test--article__btn">
             {isOpen ? 'close' : 'open'}
           </button>
@@ -37,39 +37,40 @@ class Article extends PureComponent {
     )
   }
 
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  handleClick = () => {
+    this.props.toggleOpen(this.props.id)
+  }
 
   handleDelete = () => {
-    const { article, deleteArticle } = this.props
-    deleteArticle(article.id)
+    const { id, deleteArticle } = this.props
+    deleteArticle(id)
   }
 
   get body() {
-    const { isOpen, article } = this.props
+    const { isOpen, articles, id } = this.props
     if (!isOpen) return null
 
     return (
       <section className="test--article__body">
-        {article.text}
-        {!this.state.error && <CommentList comments={article.comments} />}
+        {articles[id].text}
+        {!this.state.error && <CommentList comments={articles[id].comments} />}
       </section>
     )
   }
 }
 
 Article.propTypes = {
-  article: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    text: PropTypes.string,
-    comments: PropTypes.array
-  }).isRequired,
+  id: PropTypes.string,
 
   isOpen: PropTypes.bool,
   toggleOpen: PropTypes.func.isRequired
 }
 
 export default connect(
-  null,
+  (state) => {
+    return {
+      articles: state.articles
+    }
+  },
   { deleteArticle }
 )(Article)

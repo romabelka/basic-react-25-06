@@ -2,8 +2,16 @@ import React, { Component } from 'react'
 import { userNameSelector } from '../../selectors'
 import { connect } from 'react-redux'
 import { addComment, showError } from '../../ac'
+import PropTypes from 'prop-types'
 
 class CommentForm extends Component {
+  static propTypes = {
+    articleId: PropTypes.string.required,
+    userName: PropTypes.string,
+    addComment: PropTypes.func,
+    showError: PropTypes.func
+  }
+
   state = {
     text: ''
   }
@@ -28,15 +36,18 @@ class CommentForm extends Component {
   }
 
   addComment = () => {
-    const { userName, addComment, showError } = this.props
+    const { articleId, userName, addComment, showError } = this.props
     const { text } = this.state
     const error = this.validate(userName, text)
     if (error) {
       showError(error)
     } else {
       addComment({
-        user: userName,
-        text: text
+        articleId: articleId,
+        comment: {
+          user: userName,
+          text: text
+        }
       })
       this.setState({
         text: ''

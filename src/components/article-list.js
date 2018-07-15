@@ -7,7 +7,7 @@ import { filtratedArticlesSelector } from '../selectors'
 
 export class ArticleList extends Component {
   static propTypes = {
-    articles: PropTypes.array.isRequired,
+    articles: PropTypes.object.isRequired,
     fetchData: PropTypes.func,
 
     //from accordion decorator
@@ -25,7 +25,8 @@ export class ArticleList extends Component {
   }
 
   get articles() {
-    return this.props.articles.map((article) => (
+    console.log(Object.values(this.props.articles))
+    return Object.values(this.props.articles).map((article) => (
       <li key={article.id} className="test--article-list__item">
         <Article
           article={article}

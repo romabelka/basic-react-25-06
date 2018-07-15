@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import CommentList from '../comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
 import { deleteArticle } from '../../ac'
+import { createArticleSelector } from '../../selectors'
 import './style.css'
 
 class Article extends PureComponent {
@@ -51,7 +52,9 @@ class Article extends PureComponent {
     return (
       <section className="test--article__body">
         {article.text}
-        {!this.state.error && <CommentList comments={article.comments} />}
+        {!this.state.error && (
+          <CommentList comments={article.comments} articleId={article.id} />
+        )}
       </section>
     )
   }
@@ -69,7 +72,15 @@ Article.propTypes = {
   toggleOpen: PropTypes.func.isRequired
 }
 
+const initMapStateToProps = () => {
+  const articleSelector = createArticleSelector()
+
+  return (state, ownProps) => ({
+    article: articleSelector(state, ownProps)
+  })
+}
+
 export default connect(
-  null,
+  initMapStateToProps,
   { deleteArticle }
 )(Article)

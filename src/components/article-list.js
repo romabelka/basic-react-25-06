@@ -25,11 +25,11 @@ export class ArticleList extends Component {
   }
 
   get articles() {
-    return this.props.articles.map((article) => (
-      <li key={article.id} className="test--article-list__item">
+    return this.props.articles.map((articleId) => (
+      <li key={articleId} className="test--article-list__item">
         <Article
-          article={article}
-          isOpen={this.props.openItemId === article.id}
+          article={articleId}
+          isOpen={this.props.openItemId === articleId}
           toggleOpen={this.props.toggleOpenItem}
         />
       </li>

@@ -70,6 +70,8 @@ Article.propTypes = {
 }
 
 export default connect(
-  null,
+  (state, ownProps) => ({
+    article: state.articles[ownProps.article]
+  }),
   { deleteArticle }
 )(Article)

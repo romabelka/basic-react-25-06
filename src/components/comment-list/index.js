@@ -5,6 +5,8 @@ import Comment from '../comment'
 import AddComment from '../addComment'
 import toggleOpen from '../../decorators/toggleOpen'
 import './style.css'
+import { connect } from 'react-redux'
+import { addComment } from '../../ac'
 
 class CommentList extends Component {
   static propTypes = {
@@ -21,11 +23,11 @@ class CommentList extends Component {
 */
 
   render() {
-    const { isOpen, toggleOpen } = this.props
+    const { isOpen, toggleOpen, articleId, addComment } = this.props
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
-        <AddComment />
+        <AddComment articleId={articleId} addComment={addComment} />
         <button onClick={toggleOpen} className="test--comment-list__btn">
           {text}
         </button>
@@ -68,4 +70,7 @@ class CommentList extends Component {
   }
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+  null,
+  { addComment }
+)(toggleOpen(CommentList))

@@ -52,14 +52,19 @@ class Article extends PureComponent {
     return (
       <section className="test--article__body">
         {article.text}
-        {!this.state.error && <CommentList comments={article.comments} />}
+        {!this.state.error && <CommentList commentsToEntityId={article.id} />}
       </section>
     )
   }
 }
 
 Article.propTypes = {
-  id: PropTypes.string,
+  article: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    comments: PropTypes.array
+  }).isRequired,
 
   isOpen: PropTypes.bool,
   toggleOpen: PropTypes.func.isRequired

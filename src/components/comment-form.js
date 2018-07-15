@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addComment } from '../ac'
 
 const fieldNames = {
   user: 'user',
-  comment: 'comment'
+  text: 'text'
 }
 
-export default class CommentForm extends Component {
+class CommentForm extends Component {
   state = {
     [fieldNames.user]: '',
-    [fieldNames.comment]: ''
+    [fieldNames.text]: ''
   }
 
   render() {
@@ -26,7 +28,7 @@ export default class CommentForm extends Component {
         </div>
         <div>
           <textarea
-            name={fieldNames.comment}
+            name={fieldNames.text}
             value={comment}
             onChange={this.handleChange}
           />
@@ -48,6 +50,14 @@ export default class CommentForm extends Component {
 
     if (errors.length) {
       alert(`Please, fill the fields:\n - ${errors.join('\n - ')}`)
+      return
     }
+
+    this.props.addComment(this.state, this.props.commentsToEntityId)
   }
 }
+
+export default connect(
+  null,
+  { addComment }
+)(CommentForm)

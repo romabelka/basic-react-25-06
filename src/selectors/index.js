@@ -9,7 +9,7 @@ export const filtratedArticlesSelector = createSelector(
   articleListSelector,
   filtersSelector,
   (articles, filters) => {
-    console.log('---', 'articles selector')
+    // console.log('---', 'articles selector')
     const {
       selected,
       dateRange: { from, to }
@@ -28,7 +28,7 @@ export const filtratedArticlesSelector = createSelector(
 
 export const createCommentSelector = () =>
   createSelector(commentsSelector, idSelector, (comments, id) => {
-    console.log('---', 'comment selector', id)
+    // console.log('---', 'comment selector', id)
     return comments[id]
   })
 
@@ -36,4 +36,12 @@ export const articleSelector = createSelector(
   articleListSelector,
   idSelector,
   (articles, id) => articles[id]
+)
+
+export const commentListSelector = createSelector(
+  articleListSelector,
+  idSelector,
+  (articles, id) => {
+    return articles[id].comments
+  }
 )

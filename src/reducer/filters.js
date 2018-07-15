@@ -21,6 +21,7 @@ export default (filters = defaultFilters, action) => {
       return { ...filters, dateRange: payload.dateRange }
 
     case CHANGE_SELECTION:
+      console.log(payload.selected.map((elem) => elem.value))
       return { ...filters, selected: payload.selected }
 
     case DELETE_ARTICLE:

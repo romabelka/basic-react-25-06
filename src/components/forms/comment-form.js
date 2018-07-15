@@ -20,7 +20,12 @@ class CommentForm extends Component {
     return (
       <div>
         <h4>{this.props.userName}</h4>
-        <textarea onChange={this.handleChange} cols="40" rows="5" />
+        <textarea
+          value={this.state.text}
+          onChange={this.handleChange}
+          cols="40"
+          rows="5"
+        />
         <div>
           <button onClick={this.addComment}>Add</button>
         </div>

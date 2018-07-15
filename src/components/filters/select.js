@@ -15,9 +15,10 @@ class SelectFilter extends Component {
   }
 
   get options() {
-    return this.props.articles.map((article) => ({
-      label: article.title,
-      value: article.id
+    const articles = Object.keys(this.props.articles)
+    return articles.map((article) => ({
+      label: this.props.articles[article].title,
+      value: this.props.articles[article].id
     }))
   }
 

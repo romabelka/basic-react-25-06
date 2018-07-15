@@ -4,7 +4,7 @@ import articles from './articles'
 import comments from './comments'
 import filters from './filters'
 import user from './user'
-import error from './error'
+import { reducer as toastr } from 'react-redux-toastr'
 
 export default combineReducers({
   counter: counterReducer,
@@ -12,5 +12,5 @@ export default combineReducers({
   comments,
   filters,
   user,
-  error
+  toastr
 })

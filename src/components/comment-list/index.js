@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CSSTransition from 'react-addons-css-transition-group'
 import Comment from '../comment'
+import AddComment from '../addComment'
 import toggleOpen from '../../decorators/toggleOpen'
 import './style.css'
 
@@ -24,6 +25,7 @@ class CommentList extends Component {
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
+        <AddComment />
         <button onClick={toggleOpen} className="test--comment-list__btn">
           {text}
         </button>

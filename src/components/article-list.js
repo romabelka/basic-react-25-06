@@ -26,7 +26,6 @@ export class ArticleList extends Component {
 
   get articles() {
     // console.log(this.props.articles)
-    console.log(this.props.articles)
     return this.props.articles.map((id) => (
       <li key={id} className="test--article-list__item">
         <Article

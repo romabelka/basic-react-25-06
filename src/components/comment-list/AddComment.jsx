@@ -1,4 +1,6 @@
 import React, {PureComponent} from "react"
+import {connect} from "react-redux"
+import {addComment} from "./../../ac"
 
 class AddComment extends PureComponent {
 
@@ -31,7 +33,7 @@ class AddComment extends PureComponent {
       )
   }
 
-  addCommentSubmit(e) {
+  addCommentSubmit(e) { // Это же нормальная валидация?
     e.preventDefault()
     if(this.state.username.trim().length <= 3 || this.state.comment.trim().length <= 3) {
       this.setState({
@@ -45,7 +47,12 @@ class AddComment extends PureComponent {
       })
     }
     else {
-      alert("da")
+      const comment = {
+        user: this.state.username,
+        text: this.state.comment,
+        articleId: this.props.articleId
+      }
+      this.props.addComment(comment)
       this.setState({
         error: null
       })
@@ -73,4 +80,6 @@ class AddComment extends PureComponent {
   }
 }
 
-export default AddComment
+export default connect(null, {
+  addComment
+})(AddComment)

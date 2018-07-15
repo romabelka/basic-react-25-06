@@ -5,6 +5,7 @@ import CommentList from '../comment-list'
 import CSSTransition from 'react-addons-css-transition-group'
 import { deleteArticle } from '../../ac'
 import './style.css'
+import { articleSelector } from '../../selectors'
 
 class Article extends PureComponent {
   state = {
@@ -58,12 +59,7 @@ class Article extends PureComponent {
 }
 
 Article.propTypes = {
-  article: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    text: PropTypes.string,
-    comments: PropTypes.array
-  }).isRequired,
+  id: PropTypes.string,
 
   isOpen: PropTypes.bool,
   toggleOpen: PropTypes.func.isRequired
@@ -71,7 +67,7 @@ Article.propTypes = {
 
 export default connect(
   (state, ownProps) => ({
-    article: state.articles[ownProps.article]
+    article: articleSelector(state, ownProps)
   }),
   { deleteArticle }
 )(Article)

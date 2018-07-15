@@ -59,6 +59,10 @@ class CommentForm extends Component {
     e.preventDefault()
     const { user, commentText } = this.state
     if (user && commentText) {
+      this.setState({
+        user: '',
+        commentText: ''
+      })
       this.props.addComment(user, commentText, this.props.articleId, null)
     }
   }

@@ -14,15 +14,15 @@ export default (commentsState = defaultComments, action) => {
 
   switch (type) {
     case ADD_COMMENT:
-      console.log(commentsState)
-      const { user, commentText, articleId, commentId } = payload
+      const { user, commentText, commentId } = payload
       let comments = JSON.parse(JSON.stringify(commentsState))
-      console.log(commentId, comments)
+
       comments[commentId] = {
         id: commentId,
         user,
         text: commentText
       }
+
       return comments
 
     default:

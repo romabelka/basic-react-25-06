@@ -3,7 +3,8 @@ import {
   DELETE_ARTICLE,
   CHANGE_DATE_RANGE,
   CHANGE_SELECTION,
-  ADD_COMMENT
+  ADD_COMMENT,
+  ADD_COMMENT_ID_TO_ARTICLE
 } from '../constants'
 
 export function increment() {
@@ -37,5 +38,12 @@ export function addComment(user, commentText, articleId, commentId) {
   return {
     type: ADD_COMMENT,
     payload: { user, commentText, articleId, commentId }
+  }
+}
+
+export function addCommentIdToArticle(articleId, commentId) {
+  return {
+    type: ADD_COMMENT_ID_TO_ARTICLE,
+    payload: { articleId, commentId }
   }
 }

@@ -7,7 +7,7 @@ import { articleListSelector, filtersSelector } from '../../selectors'
 
 class SelectFilter extends Component {
   static propTypes = {
-    articles: PropTypes.array.isRequired
+    articles: PropTypes.object.isRequired
   }
 
   handleChange = (selected) => {
@@ -24,7 +24,7 @@ class SelectFilter extends Component {
   render() {
     return (
       <Select
-        options={this.options}
+        options={this.options.toJS()}
         value={this.props.selected}
         onChange={this.handleChange}
         isMulti

@@ -7,7 +7,7 @@ import { filtratedArticlesSelector } from '../selectors'
 
 export class ArticleList extends Component {
   static propTypes = {
-    articles: PropTypes.array.isRequired,
+    articles: PropTypes.object.isRequired,
     fetchData: PropTypes.func,
 
     //from accordion decorator

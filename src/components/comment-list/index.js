@@ -4,6 +4,9 @@ import CSSTransition from 'react-addons-css-transition-group'
 import Comment from '../comment'
 import toggleOpen from '../../decorators/toggleOpen'
 import './style.css'
+import CommentForm from '../comment-form'
+import { connect } from 'react-redux'
+import { addComment } from '../../ac'
 
 class CommentList extends Component {
   static propTypes = {
@@ -49,6 +52,7 @@ class CommentList extends Component {
         ) : (
           <h3 className="test--comment-list__empty">No comments yet</h3>
         )}
+        <div>{this.newComment}</div>
       </div>
     )
   }
@@ -64,6 +68,18 @@ class CommentList extends Component {
       </ul>
     )
   }
+
+  get newComment() {
+    return (
+      <CommentForm
+        articleId={this.props.articleId}
+        addComment={this.props.addComment}
+      />
+    )
+  }
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+  null,
+  { addComment }
+)(toggleOpen(CommentList))

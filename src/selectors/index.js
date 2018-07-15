@@ -31,3 +31,6 @@ export const createCommentSelector = () =>
     console.log('---', 'comment selector', id)
     return comments[id]
   })
+
+export const userNameSelector = (state) => state.user.userName
+export const userErrorSelector = (state) => state.error.userError

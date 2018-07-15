@@ -2,7 +2,10 @@ import {
   INCREMENT,
   DELETE_ARTICLE,
   CHANGE_DATE_RANGE,
-  CHANGE_SELECTION
+  CHANGE_SELECTION,
+  ADD_COMMENT,
+  LOGIN,
+  USER_ERROR
 } from '../constants'
 
 export function increment() {
@@ -29,5 +32,26 @@ export function changeSelection(selected) {
   return {
     type: CHANGE_SELECTION,
     payload: { selected }
+  }
+}
+
+export function addComment(comment) {
+  return {
+    type: ADD_COMMENT,
+    payload: comment
+  }
+}
+
+export function login(userName) {
+  return {
+    type: LOGIN,
+    payload: userName
+  }
+}
+
+export function showError(message) {
+  return {
+    type: USER_ERROR,
+    payload: message
   }
 }

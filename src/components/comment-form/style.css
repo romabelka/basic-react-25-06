@@ -1,0 +1,3 @@
+.comment-form__input--user:invalid,.comment-form__input--text:invalid {
+    border: 2px red;
+  }

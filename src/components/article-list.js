@@ -6,7 +6,8 @@ import Loader from './common/loader'
 import accordion from '../decorators/accordion'
 import {
   filtratedArticlesSelector,
-  articlesLoadingSelector
+  articlesLoadingSelector,
+  articlesLoadedSelector
 } from '../selectors'
 import { loadAllArticles } from '../ac'
 
@@ -21,7 +22,7 @@ export class ArticleList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData && this.props.fetchData()
+    this.props.fetchData && !this.props.loaded && this.props.fetchData()
   }
 
   render() {
@@ -45,7 +46,8 @@ export class ArticleList extends Component {
 export default connect(
   (state) => ({
     articles: filtratedArticlesSelector(state),
-    loading: articlesLoadingSelector(state)
+    loading: articlesLoadingSelector(state),
+    loaded: articlesLoadedSelector(state)
   }),
   { fetchData: loadAllArticles }
 )(accordion(ArticleList))

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
 export const filtersSelector = (state) => state.filters
-export const articleListSelector = (state) => state.articles
+export const articleListSelector = (state) => Object.values(state.articles)
 export const commentsSelector = (state) => state.comments
 export const idSelector = (_, props) => props.id
 
@@ -31,3 +31,6 @@ export const createCommentSelector = () =>
     console.log('---', 'comment selector', id)
     return comments[id]
   })
+
+export const userNameSelector = (state) => state.user.userName
+export const userErrorSelector = (state) => state.error.userError

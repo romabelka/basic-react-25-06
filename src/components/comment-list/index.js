@@ -4,9 +4,11 @@ import CSSTransition from 'react-addons-css-transition-group'
 import Comment from '../comment'
 import toggleOpen from '../../decorators/toggleOpen'
 import './style.css'
+import CommentForm from '../forms/comment-form'
 
 class CommentList extends Component {
   static propTypes = {
+    articleId: PropTypes.string.required,
     comments: PropTypes.array,
     //from toggleOpen decorator
     isOpen: PropTypes.bool,
@@ -49,6 +51,7 @@ class CommentList extends Component {
         ) : (
           <h3 className="test--comment-list__empty">No comments yet</h3>
         )}
+        <CommentForm articleId={this.props.articleId} />
       </div>
     )
   }

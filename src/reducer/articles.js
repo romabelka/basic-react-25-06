@@ -5,28 +5,13 @@ import {
   SUCCESS,
   START,
   FAIL,
-  LOAD_ARTICLE
+  LOAD_ARTICLE,
+  LOAD_ARTICLE_COMMENTS
 } from '../constants'
 import { arrToMap } from './utils'
-import { Record } from 'immutable'
+import { ArticleRecord, EntityRecord } from './records'
 
-const ArticleRecord = Record({
-  id: null,
-  text: null,
-  title: null,
-  date: null,
-  loading: false,
-  comments: []
-})
-
-const ReducerState = Record({
-  entities: arrToMap([], ArticleRecord),
-  loading: false,
-  loaded: false,
-  error: null
-})
-
-export default (articles = new ReducerState(), action) => {
+export default (articles = new EntityRecord(), action) => {
   const { type, payload, randomId, response, error } = action
 
   switch (type) {
@@ -59,6 +44,26 @@ export default (articles = new ReducerState(), action) => {
         ['entities', payload.id],
         new ArticleRecord(response)
       )
+
+    case LOAD_ARTICLE_COMMENTS + START:
+      return articles.setIn(
+        ['entities', payload.articleId, 'commentsLoading'],
+        true
+      )
+
+    case LOAD_ARTICLE_COMMENTS + SUCCESS:
+      return articles
+        .setIn(['entities', payload.articleId, 'commentsError'], null)
+        .setIn(['entities', payload.articleId, 'commentsLoading'], false)
+        .setIn(['entities', payload.articleId, 'commentsLoaded'], true)
+
+    case LOAD_ARTICLE_COMMENTS + FAIL:
+      return articles
+        .setIn(
+          ['entities', payload.articleId, 'commentsError'],
+          error.toString()
+        )
+        .setIn(['entities', payload.articleId, 'commentsLoading'], false)
 
     default:
       return articles

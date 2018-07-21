@@ -8,6 +8,7 @@ export const ArticleRecord = Record({
   date: null,
   comments: [],
   loading: false,
+  loaded: false,
   commentsLoading: false,
   commentsLoaded: false,
   commentsError: null

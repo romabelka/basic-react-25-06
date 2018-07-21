@@ -40,10 +40,9 @@ export default (articles = new EntityRecord(), action) => {
       return articles.setIn(['entities', payload.id, 'loading'], true)
 
     case LOAD_ARTICLE + SUCCESS:
-      return articles.setIn(
-        ['entities', payload.id],
-        new ArticleRecord(response)
-      )
+      return articles
+        .setIn(['entities', payload.id], new ArticleRecord(response))
+        .setIn(['entities', payload.id, 'loaded'], true)
 
     case LOAD_ARTICLE_COMMENTS + START:
       return articles.setIn(

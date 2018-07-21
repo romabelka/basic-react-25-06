@@ -19,7 +19,7 @@ class Article extends PureComponent {
   componentDidUpdate(oldProps) {
     const { isOpen, loadArticle, article } = this.props
 
-    if (!oldProps.isOpen && isOpen && !article.text) loadArticle(article.id)
+    if (!oldProps.isOpen && isOpen && !article.loaded) loadArticle(article.id)
   }
 
   render() {
@@ -53,8 +53,11 @@ class Article extends PureComponent {
 
   get body() {
     const { isOpen, article } = this.props
-    if (!isOpen) return null
+
     if (article.loading) return <Loader />
+    if (!isOpen || !article.loaded) return null
+
+    console.log('loader AFTER')
 
     return (
       <section className="test--article__body">

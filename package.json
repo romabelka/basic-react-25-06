@@ -2,7 +2,9 @@
   "name": "basic-25-06",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
+    "immutable": "^4.0.0-rc.9",
     "jest-cli": "^20.0.4",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
@@ -13,10 +15,12 @@
     "react-scripts": "1.1.4",
     "react-select": "^2.0.0-beta.6",
     "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "reselect": "^3.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\" \"npm run api\"",
+    "api": "node simple_api/server.js",
     "build": "react-scripts build",
     "prettier": "prettier --write \"**/*.js\"",
     "test": "react-scripts test --env=jsdom",
@@ -28,6 +32,7 @@
     }
   },
   "devDependencies": {
+    "concurrently": "^3.6.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "husky": "^1.0.0-rc.6",

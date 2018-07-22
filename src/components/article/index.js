@@ -38,7 +38,7 @@ class Article extends PureComponent {
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}
         >
-          {this.body}
+          {article.loading ? <Loader /> : this.body}
         </CSSTransition>
       </div>
     )
@@ -53,8 +53,9 @@ class Article extends PureComponent {
 
   get body() {
     const { isOpen, article } = this.props
-    if (!isOpen) return null
     if (article.loading) return <Loader />
+
+    if (!isOpen) return null
 
     return (
       <section className="test--article__body">

@@ -35,6 +35,8 @@ class Article extends PureComponent {
         </h3>
         <CSSTransition
           transitionName="article"
+          transitionAppear={true}
+          transitionAppearTimeout={5000}
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}
         >

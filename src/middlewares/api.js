@@ -1,6 +1,7 @@
 import { START, SUCCESS, FAIL } from '../constants'
 
 export default (store) => (next) => (action) => {
+  console.log('middl')
   const { callAPI, type, ...rest } = action
 
   if (!callAPI) return next(action)

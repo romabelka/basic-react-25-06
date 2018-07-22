@@ -13,19 +13,10 @@ function Comment({ comment }) {
 
 Comment.propTypes = {
   id: PropTypes.string,
-  // from connect
   comment: PropTypes.shape({
     text: PropTypes.string.isRequired,
     user: PropTypes.string
   })
 }
 
-const initMapStateToProps = () => {
-  const commentSelector = createCommentSelector()
-
-  return (state, ownProps) => ({
-    comment: commentSelector(state, ownProps)
-  })
-}
-
-export default connect(initMapStateToProps)(Comment)
+export default Comment

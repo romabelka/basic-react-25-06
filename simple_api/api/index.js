@@ -42,6 +42,7 @@ router.post('/article', function(req, res, next) {
 
 router.get('/comment', function(req, res, next) {
   var aid = req.query.article
+  console.log(req)
   if (aid) {
     var article = mocks.articles.find(function(article) {
       return article.id == aid

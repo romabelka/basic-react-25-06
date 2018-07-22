@@ -5,9 +5,10 @@ import {
   SUCCESS,
   START,
   FAIL,
-  LOAD_ARTICLE
+  LOAD_ARTICLE,
+  LOAD_COMMENTS
 } from '../constants'
-import { arrToMap } from './utils'
+import { arrToMap, getReducerState } from './utils'
 import { Record } from 'immutable'
 
 const ArticleRecord = Record({
@@ -16,17 +17,12 @@ const ArticleRecord = Record({
   title: null,
   date: null,
   loading: false,
-  comments: []
+  comments: [],
+  commentsLoaded: false,
+  commentsLoading: false
 })
 
-const ReducerState = Record({
-  entities: arrToMap([], ArticleRecord),
-  loading: false,
-  loaded: false,
-  error: null
-})
-
-export default (articles = new ReducerState(), action) => {
+export default (articles = getReducerState(ArticleRecord), action) => {
   const { type, payload, randomId, response, error } = action
 
   switch (type) {
@@ -59,7 +55,15 @@ export default (articles = new ReducerState(), action) => {
         ['entities', payload.id],
         new ArticleRecord(response)
       )
-
+    case LOAD_COMMENTS + START:
+      console.log('loading comments')
+      return articles
+        .setIn(['entities', payload.id, 'commentsLoading'], true)
+        .setIn(['entities', payload.id, 'commentsLoaded'], false)
+    case LOAD_COMMENTS + SUCCESS:
+      return articles
+        .setIn(['entities', payload.id, 'commentsLoading'], false)
+        .setIn(['entities', payload.id, 'commentsLoaded'], true)
     default:
       return articles
   }

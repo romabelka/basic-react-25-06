@@ -6,6 +6,10 @@ import CommentForm from '../comment-form'
 import toggleOpen from '../../decorators/toggleOpen'
 import './style.css'
 
+import Loader from '../common/loader'
+import { connect } from 'react-redux'
+import { loadComments } from '../../ac'
+
 class CommentList extends Component {
   static propTypes = {
     article: PropTypes.object.isRequired,
@@ -20,6 +24,12 @@ class CommentList extends Component {
   }
 */
 
+  componentDidUpdate(oldProps) {
+    const { isOpen, fetchData, article } = this.props
+    if (!oldProps.isOpen && isOpen && !article.commentsLoaded)
+      fetchData(article.id)
+  }
+
   render() {
     const { isOpen, toggleOpen } = this.props
     const text = isOpen ? 'hide comments' : 'show comments'
@@ -28,6 +38,7 @@ class CommentList extends Component {
         <button onClick={toggleOpen} className="test--comment-list__btn">
           {text}
         </button>
+
         <CSSTransition
           transitionName="comments"
           transitionEnterTimeout={500}
@@ -41,11 +52,12 @@ class CommentList extends Component {
 
   getBody() {
     const {
-      article: { comments = [], id },
+      article: { comments = [], id, commentsLoaded, commentsLoading },
       isOpen
     } = this.props
-    if (!isOpen) return null
+    if (commentsLoading) return <Loader />
 
+    if (!isOpen || !commentsLoaded) return null
     return (
       <div className="test--comment-list__body">
         {comments.length ? (
@@ -59,6 +71,7 @@ class CommentList extends Component {
   }
 
   get comments() {
+    console.log('artcile id:', this.props.article.id)
     return (
       <ul>
         {this.props.article.comments.map((id) => (
@@ -71,4 +84,11 @@ class CommentList extends Component {
   }
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+  null,
+  {
+    fetchData: (id) => {
+      return loadComments(id)
+    }
+  }
+)(toggleOpen(CommentList))

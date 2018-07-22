@@ -5,6 +5,7 @@ import {
   CHANGE_SELECTION,
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
+  LOAD_ARTICLE_COMMENTS,
   LOAD_ARTICLE,
   START,
   SUCCESS,
@@ -86,5 +87,32 @@ export function loadArticle(id) {
           error
         })
       )
+  }
+}
+
+export function loadArticleComments(id) {
+  return (dispatch) => {
+    dispatch({
+      type: LOAD_ARTICLE_COMMENTS + START,
+      payload: { articleId: id }
+    })
+
+    fetch(`api/comment?article=${id}`)
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response)
+        dispatch({
+          type: LOAD_ARTICLE_COMMENTS + SUCCESS,
+          payload: { articleId: id },
+          response
+        })
+      })
+      .catch((err) => {
+        dispatch({
+          type: LOAD_ARTICLE_COMMENTS + FAIL,
+          payload: { articleId: id },
+          error: err
+        })
+      })
   }
 }

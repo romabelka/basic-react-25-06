@@ -4,6 +4,9 @@ import CSSTransition from 'react-addons-css-transition-group'
 import Comment from '../comment'
 import CommentForm from '../comment-form'
 import toggleOpen from '../../decorators/toggleOpen'
+import Loader from '../common/loader'
+import { loadArticleComments } from '../../ac'
+import { connect } from 'react-redux'
 import './style.css'
 
 class CommentList extends Component {
@@ -14,13 +17,20 @@ class CommentList extends Component {
     toggleOpen: PropTypes.func
   }
 
-  /*
-  static defaultProps = {
-    comments: []
+  componentDidUpdate({ isOpen: oldIsOpen }) {
+    const {
+      isOpen,
+      article: { id, commentsLoaded },
+      loadArticleComments
+    } = this.props
+
+    if (!oldIsOpen && isOpen && !commentsLoaded) {
+      loadArticleComments(id)
+    }
   }
-*/
 
   render() {
+    console.log(this.props, 'propsArticle')
     const { isOpen, toggleOpen } = this.props
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
@@ -41,10 +51,15 @@ class CommentList extends Component {
 
   getBody() {
     const {
-      article: { comments = [], id },
+      article: { comments = [], id, commentsLoading, commentsLoaded },
       isOpen
     } = this.props
-    if (!isOpen) return null
+
+    if (commentsLoading) {
+      return <Loader />
+    }
+
+    if (!isOpen || !commentsLoaded) return null
 
     return (
       <div className="test--comment-list__body">
@@ -71,4 +86,7 @@ class CommentList extends Component {
   }
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+  null,
+  { loadArticleComments }
+)(toggleOpen(CommentList))

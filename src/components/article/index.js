@@ -33,6 +33,7 @@ class Article extends PureComponent {
           </button>
           <button onClick={this.handleDelete}>delete me</button>
         </h3>
+        { isOpen &&  article.loading && <Loader/> }
         <CSSTransition
           transitionName="article"
           transitionEnterTimeout={500}
@@ -52,14 +53,12 @@ class Article extends PureComponent {
   }
 
   get body() {
-    const { isOpen, article } = this.props
-    if (!isOpen) return null
-    if (article.loading) return <Loader />
-
+    const { article, isOpen } = this.props
+    if (!isOpen ||!article.loaded) return null
     return (
       <section className="test--article__body">
         {article.text}
-        {!this.state.error && <CommentList article={article} />}
+        {!this.state.error && <CommentList articleId={ article.id } />}
       </section>
     )
   }

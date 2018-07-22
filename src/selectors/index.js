@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import {arrToMap} from "../reducer/utils";
 
 export const filtersSelector = (state) => state.filters
 export const articlesLoadingSelector = (state) => state.articles.loading
@@ -8,7 +9,15 @@ export const articleListSelector = createSelector(
   articlesMapSelector,
   (articlesMap) => articlesMap.valueSeq().toArray()
 )
-export const commentsSelector = (state) => state.comments
+export const commentsSelector = (state) => {
+  let arr = arrToMap([])
+  state.comments.map((commentsList, articleId) => {
+
+  })
+}
+export const articleCommentsSelector = (state, props) => {
+  return state.comments.get(props.articleId)
+}
 export const idSelector = (_, props) => props.id
 
 export const filtratedArticlesSelector = createSelector(

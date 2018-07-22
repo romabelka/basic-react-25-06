@@ -16,6 +16,7 @@ const ArticleRecord = Record({
   title: null,
   date: null,
   loading: false,
+  loaded: false,
   comments: []
 })
 
@@ -59,6 +60,9 @@ export default (articles = new ReducerState(), action) => {
         ['entities', payload.id],
         new ArticleRecord(response)
       )
+        .setIn( ['entities', payload.id, 'loaded'], true)
+        .setIn( ['entities', payload.id, 'loading'], false)
+
 
     default:
       return articles

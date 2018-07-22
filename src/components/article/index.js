@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list'
+import Loader from '../common/loader'
 import CSSTransition from 'react-addons-css-transition-group'
-import { deleteArticle } from '../../ac'
+import { deleteArticle, loadArticle } from '../../ac'
 import './style.css'
 
 class Article extends PureComponent {
@@ -13,6 +14,12 @@ class Article extends PureComponent {
 
   componentDidCatch(error) {
     this.setState({ error })
+  }
+
+  componentDidUpdate(oldProps) {
+    const { isOpen, loadArticle, article } = this.props
+
+    if (!oldProps.isOpen && isOpen && !article.text) loadArticle(article.id)
   }
 
   render() {
@@ -26,13 +33,19 @@ class Article extends PureComponent {
           </button>
           <button onClick={this.handleDelete}>delete me</button>
         </h3>
-        <CSSTransition
-          transitionName="article"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-          {this.body}
-        </CSSTransition>
+        {article.loading ? (
+          <Loader />
+        ) : (
+          <CSSTransition // animate
+            transitionName="article"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+          >
+            {this.body}
+          </CSSTransition>
+        )}
       </div>
     )
   }
@@ -51,7 +64,7 @@ class Article extends PureComponent {
     return (
       <section className="test--article__body">
         {article.text}
-        {!this.state.error && <CommentList comments={article.comments} />}
+        {!this.state.error && <CommentList article={article} />}
       </section>
     )
   }
@@ -71,5 +84,5 @@ Article.propTypes = {
 
 export default connect(
   null,
-  { deleteArticle }
+  { deleteArticle, loadArticle }
 )(Article)

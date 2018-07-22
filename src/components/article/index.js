@@ -33,13 +33,19 @@ class Article extends PureComponent {
           </button>
           <button onClick={this.handleDelete}>delete me</button>
         </h3>
-        <CSSTransition
-          transitionName="article"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-          {this.body}
-        </CSSTransition>
+        {article.loading ? (
+          <Loader />
+        ) : (
+          <CSSTransition // animate
+            transitionName="article"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+          >
+            {this.body}
+          </CSSTransition>
+        )}
       </div>
     )
   }

@@ -5,6 +5,10 @@ import Comment from '../comment'
 import CommentForm from '../comment-form'
 import toggleOpen from '../../decorators/toggleOpen'
 import './style.css'
+import { connect } from 'react-redux'
+import { commentsLoadedSelector } from './../../selectors'
+import Loader from './../common/loader'
+import { loadComments } from './../../ac'
 
 class CommentList extends Component {
   static propTypes = {
@@ -28,15 +32,27 @@ class CommentList extends Component {
         <button onClick={toggleOpen} className="test--comment-list__btn">
           {text}
         </button>
-        <CSSTransition
-          transitionName="comments"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
-        >
-          {this.getBody()}
-        </CSSTransition>
+        {!this.props.loaded && isOpen ? (
+          <Loader />
+        ) : (
+          <CSSTransition
+            transitionName="comments"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+          >
+            {this.getBody()}
+          </CSSTransition>
+        )}
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.isOpen && this.props.isOpen && !this.props.loaded) {
+      this.props.loadComments()
+    }
   }
 
   getBody() {
@@ -71,4 +87,13 @@ class CommentList extends Component {
   }
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+  (state) => {
+    return {
+      loaded: commentsLoadedSelector(state)
+    }
+  },
+  {
+    loadComments
+  }
+)(toggleOpen(CommentList))

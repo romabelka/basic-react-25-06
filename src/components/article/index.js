@@ -16,12 +16,6 @@ class Article extends PureComponent {
     this.setState({ error })
   }
 
-  componentDidUpdate(oldProps) {
-    const { isOpen, loadArticle, article } = this.props
-
-    if (!oldProps.isOpen && isOpen && !article.text) loadArticle(article.id)
-  }
-
   render() {
     const { article, isOpen } = this.props
     return (
@@ -44,7 +38,12 @@ class Article extends PureComponent {
     )
   }
 
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  handleClick = () => {
+    const { loadArticle, article } = this.props
+    loadArticle && !article.loaded && loadArticle(article.id)
+
+    this.props.toggleOpen(this.props.article.id)
+  }
 
   handleDelete = () => {
     const { article, deleteArticle } = this.props

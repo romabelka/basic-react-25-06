@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import { EmptyComments } from '../constants'
 
 export const filtersSelector = (state) => state.filters
 export const articlesLoadingSelector = (state) => state.articles.loading
@@ -8,8 +9,23 @@ export const articleListSelector = createSelector(
   articlesMapSelector,
   (articlesMap) => articlesMap.valueSeq().toArray()
 )
-export const commentsSelector = (state) => state.comments
-export const idSelector = (_, props) => props.id
+const articleCommentsSelector = (state, articleId) =>
+  state.comments.entities.get(articleId)
+export const commentSelector = (state, articleId, id) => {
+  const article = articleCommentsSelector(state, articleId)
+  if (article) {
+    return article.comments.get(id)
+  }
+  return null
+}
+export const commentsLoadingSelector = (state, articleId) => {
+  const article = articleCommentsSelector(state, articleId)
+  return article && article.loading
+}
+export const commentsLoadedSelector = (state, articleId) => {
+  const article = articleCommentsSelector(state, articleId)
+  return article && article.loaded
+}
 
 export const filtratedArticlesSelector = createSelector(
   articleListSelector,
@@ -31,9 +47,3 @@ export const filtratedArticlesSelector = createSelector(
     })
   }
 )
-
-export const createCommentSelector = () =>
-  createSelector(commentsSelector, idSelector, (comments, id) => {
-    console.log('---', 'comment selector', id)
-    return comments.get(id)
-  })

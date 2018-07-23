@@ -54,10 +54,10 @@ class Article extends PureComponent {
   get body() {
     const { isOpen, article } = this.props
     if (!isOpen) return null
-    if (article.loading) return <Loader />
+    if (article.loading) return <Loader key="loader" />
 
     return (
-      <section className="test--article__body">
+      <section className="test--article__body" key="body">
         {article.text}
         {!this.state.error && <CommentList article={article} />}
       </section>

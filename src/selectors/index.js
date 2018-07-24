@@ -42,3 +42,17 @@ export const articleSelector = createSelector(
   idSelector,
   (articles, id) => articles.get(id)
 )
+
+export const totalCommentsSelector = (state) => state.comments.total
+export const commentsPaginatorSelector = (state) => state.comments.pagination
+export const pageSelector = (_, props) => props.page
+export const commentsPageIdsSelector = createSelector(
+  commentsPaginatorSelector,
+  pageSelector,
+  (pagination, page) => pagination.getIn([page, 'ids'])
+)
+export const commentsPageLoadingSelector = createSelector(
+  commentsPaginatorSelector,
+  pageSelector,
+  (pagination, page) => pagination.getIn([page, 'loading'])
+)

@@ -99,10 +99,10 @@ export function loadArticleComments(articleId) {
   }
 }
 
-export function loadComments() {
+export function loadComments(offset, limit) {
   return {
     type: LOAD_COMMENTS,
-    payload: {},
-    callAPI: `/api/comment`
+    payload: { offset, limit },
+    callAPI: `/api/comment?limit=` + limit + '&offset=' + offset
   }
 }

@@ -8,28 +8,24 @@ import { loadComments } from '../ac'
 import {
   commentsMapSelector,
   commentsLoadingSelector,
-  commentsLoadedSelector
+  commentsLoadedSelector,
+  commentsOffsetSelector,
+  commentsLimitSelector,
+  commentsTotalSelector
 } from '../selectors'
 
 class Comments extends Component {
   static propTypes = {}
 
   /*
-  static defaultProps = {
-    comments: []
-  }
-*/
-  componentDidMount(oldProps) {
-    const { loadComments } = this.props
-    /*if (
-        isOpen &&
-        !oldProps.isOpen &&
-        !article.commentsLoading &&
-        !article.commentsLoaded
-      ) {
-        loadArticleComments(article.id)
-      }*/
-    loadComments()
+    static defaultProps = {
+      comments: []
+    }
+  */
+  componentDidMount() {
+    this.props.loadComments &&
+      !this.props.loaded &&
+      this.props.loadComments(this.props.offset, this.props.limit)
   }
 
   render() {
@@ -42,13 +38,14 @@ class Comments extends Component {
         >
           {this.getBody()}
         </CSSTransition>
+        {this.pagination}
       </div>
     )
   }
 
   getBody() {
-    const { comments, loading, loaded } = this.props
-    console.log('---', comments, loading, loaded)
+    const { loading, loaded } = this.props
+
     if (loading) {
       return <Loader />
     }
@@ -56,21 +53,46 @@ class Comments extends Component {
       return null
     }
 
-    return (
-      <div>{comments.length ? this.comments : <h3>No comments yet</h3>}</div>
-    )
+    return this.comments
   }
 
   get comments() {
     return (
       <ul>
-        {this.props.comments.map((id) => (
-          <li key={id}>
-            <Comment id={id} />
+        {this.props.comments.map((comment) => (
+          <li key={comment.id}>
+            <Comment comment={comment} />
           </li>
         ))}
       </ul>
     )
+  }
+
+  get pagination() {
+    const { limit, total } = this.props
+    let offsets = []
+    for (let i = 0; i < total; i = i + limit) {
+      offsets.push({ num: i / limit + 1, offset: i })
+    }
+
+    return (
+      <div>
+        {offsets.map((offset) => (
+          <button
+            onClick={this.handlePagination(offset.offset)}
+            style={{
+              color: offset.offset == this.props.offset ? 'red' : 'black'
+            }}
+          >
+            {offset.num}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  handlePagination = (offset) => () => {
+    this.props.loadComments(offset, this.props.limit)
   }
 }
 
@@ -78,7 +100,10 @@ export default connect(
   (state) => ({
     comments: commentsMapSelector(state),
     loading: commentsLoadingSelector(state),
-    loaded: commentsLoadedSelector(state)
+    loaded: commentsLoadedSelector(state),
+    offset: commentsOffsetSelector(state),
+    limit: commentsLimitSelector(state),
+    total: commentsTotalSelector(state)
   }),
   { loadComments }
 )(Comments)

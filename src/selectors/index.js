@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import { COMMENTS_PER_PAGE_COUNT } from '../constants'
 
 export const filtersSelector = (state) => state.filters
 export const articlesLoadingSelector = (state) => state.articles.loading
@@ -9,6 +10,36 @@ export const articleListSelector = createSelector(
   (articlesMap) => articlesMap.valueSeq().toArray()
 )
 export const commentsSelector = (state) => state.comments.entities
+export const articleCommentsLoading = (state, articleId) =>
+  state.comments.loadingArticles.includes(articleId)
+export const articleCommentsLoaded = (state, articleId) =>
+  state.comments.loadedArticles.includes(articleId)
+export const pageCommentsLoading = (state, pageNumber) =>
+  state.comments.loadingPages.includes(pageNumber)
+export const pageCommentsLoaded = (state, pageNumber) =>
+  state.comments.loadedPages.includes(pageNumber)
+export const totalCommentsCount = (state) => state.comments.total
+export const commentsPagesCount = (state) => {
+  const total = totalCommentsCount(state)
+  const pagesCount =
+    total % COMMENTS_PER_PAGE_COUNT > 0
+      ? (total - (total % COMMENTS_PER_PAGE_COUNT)) / COMMENTS_PER_PAGE_COUNT +
+        1
+      : total / COMMENTS_PER_PAGE_COUNT
+  return pagesCount
+}
+
+export const commentsPerPageSelector = (state, page) => {
+  const pageComments = state.comments.pageComments.get(page)
+  if (pageComments) {
+    return state.comments.entities
+      .filter((c) => pageComments.comments.includes(c.id))
+      .valueSeq()
+      .toArray()
+  }
+
+  return []
+}
 export const idSelector = (_, props) => props.id
 
 export const filtratedArticlesSelector = createSelector(

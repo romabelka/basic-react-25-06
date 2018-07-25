@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import CommentList from '../comment-list'
+import Comments from '../article-comments'
 import Loader from '../common/loader'
 import CSSTransition from 'react-addons-css-transition-group'
 import { deleteArticle, loadArticle } from '../../ac'
@@ -62,7 +62,7 @@ class Article extends PureComponent {
     return (
       <section className="test--article__body" key="body">
         {article.text}
-        {!this.state.error && <CommentList article={article} />}
+        {!this.state.error && <Comments article={article} />}
       </section>
     )
   }

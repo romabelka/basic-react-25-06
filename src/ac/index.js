@@ -9,7 +9,9 @@ import {
   LOAD_ARTICLE_COMMENTS,
   SUCCESS,
   FAIL,
-  START
+  START,
+  LOAD_PAGE_COMMENTS,
+  COMMENTS_PER_PAGE_COUNT
 } from '../constants'
 
 export function increment() {
@@ -91,9 +93,34 @@ export function loadArticle(id) {
 }
 
 export function loadArticleComments(articleId) {
-  return {
-    type: LOAD_ARTICLE_COMMENTS,
-    payload: { articleId },
-    callAPI: `/api/comment?article=${articleId}`
+  return (dispatch, getState) => {
+    const { comments } = getState()
+    const loaded = comments.loadedArticles.includes(articleId)
+    const loading = comments.loadingArticles.includes(articleId)
+
+    if (!loaded && !loading) {
+      dispatch({
+        type: LOAD_ARTICLE_COMMENTS,
+        payload: { articleId },
+        callAPI: `/api/comment?article=${articleId}`
+      })
+    }
+  }
+}
+
+export function loadPageComments(pageNumber) {
+  return (dispatch, getState) => {
+    const { comments } = getState()
+    const loaded = comments.loadedPages.includes(pageNumber)
+    const loading = comments.loadingPages.includes(pageNumber)
+
+    if (!loaded && !loading) {
+      var offset = COMMENTS_PER_PAGE_COUNT * (pageNumber - 1)
+      dispatch({
+        type: LOAD_PAGE_COMMENTS,
+        payload: { pageNumber },
+        callAPI: `/api/comment?limit=${COMMENTS_PER_PAGE_COUNT}&offset=${offset}`
+      })
+    }
   }
 }

@@ -13,3 +13,6 @@ export const LOAD_ARTICLE_COMMENTS = 'LOAD_ARTICLE_COMMENTS'
 export const START = '_START'
 export const SUCCESS = '_SUCCESS'
 export const FAIL = '_FAIL'
+
+export const COMMENTS_PER_PAGE_COUNT = 5
+export const LOAD_PAGE_COMMENTS = 'LOAD_PAGE_COMMENTS'

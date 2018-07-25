@@ -1,35 +1,30 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import CommentList from './index'
-import articles from '../../fixtures'
+import { shallow } from 'enzyme'
+import CommentList, { ReducerRecord as CommentsRecord } from './index'
+import { normalizedComments as comments } from '../../fixtures'
+import configureStore from 'redux-mock-store'
+import { arrToMap } from '../../reducer/utils'
+import { Record } from 'immutable'
+
+const mockStore = configureStore()
+const initState = Record({
+  entities: arrToMap(comments)
+})
 
 describe('CommentList', () => {
-  it('should be closed by default', () => {
-    const wrapper = mount(<CommentList comments={articles[0].comments} />)
-
-    expect(wrapper.find('.test--comment-list__body').length).toBe(0)
-  })
-
-  it('should open on click', () => {
-    const wrapper = mount(<CommentList comments={articles[0].comments} />)
-
-    wrapper
-      .find('.test--comment-list__btn')
-      .at(0)
-      .simulate('click')
+  it('should render comments', () => {
+    const store = mockStore(initState)
+    const wrapper = shallow(
+      <CommentList store={store} comments={comments.map((c) => c.id)} />
+    )
 
     expect(wrapper.find('.test--comment-list__item').length).toBe(
-      articles[0].comments.length
+      comments.length
     )
   })
 
   it('should display an empty text', () => {
-    const wrapper = mount(<CommentList />)
-
-    wrapper
-      .find('.test--comment-list__btn')
-      .at(0)
-      .simulate('click')
+    const wrapper = shallow(<CommentList />)
 
     expect(wrapper.find('.test--comment-list__empty').length).toBe(1)
   })

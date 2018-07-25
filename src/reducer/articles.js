@@ -3,7 +3,6 @@ import {
   DELETE_ARTICLE,
   ADD_COMMENT,
   LOAD_ALL_ARTICLES,
-  LOAD_ARTICLE_COMMENTS,
   SUCCESS,
   START,
   LOAD_ARTICLE
@@ -16,8 +15,6 @@ const ArticleRecord = Record({
   title: null,
   date: null,
   loading: false,
-  commentsLoading: false,
-  commentsLoaded: false,
   comments: []
 })
 
@@ -55,17 +52,6 @@ export default (state = new ReducerRecord(), action) => {
 
     case LOAD_ARTICLE + SUCCESS:
       return state.setIn(['entities', payload.id], new ArticleRecord(response))
-
-    case LOAD_ARTICLE_COMMENTS + START:
-      return state.setIn(
-        ['entities', payload.articleId, 'commentsLoading'],
-        true
-      )
-
-    case LOAD_ARTICLE_COMMENTS + SUCCESS:
-      return state
-        .setIn(['entities', payload.articleId, 'commentsLoading'], false)
-        .setIn(['entities', payload.articleId, 'commentsLoaded'], true)
 
     default:
       return state

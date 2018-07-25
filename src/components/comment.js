@@ -24,7 +24,9 @@ const initMapStateToProps = () => {
   const commentSelector = createCommentSelector()
 
   return (state, ownProps) => ({
-    comment: commentSelector(state, ownProps)
+    comment: !ownProps.comment
+      ? commentSelector(state, ownProps)
+      : ownProps.comment
   })
 }
 

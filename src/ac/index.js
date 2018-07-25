@@ -9,7 +9,8 @@ import {
   LOAD_ARTICLE_COMMENTS,
   SUCCESS,
   FAIL,
-  START
+  START,
+  LOAD_ALL_COMMENTS
 } from '../constants'
 
 export function increment() {
@@ -95,5 +96,24 @@ export function loadArticleComments(articleId) {
     type: LOAD_ARTICLE_COMMENTS,
     payload: { articleId },
     callAPI: `/api/comment?article=${articleId}`
+  }
+}
+
+export function loadAllComments(offset) {
+  return (dispatch) => {
+    dispatch({
+      type: LOAD_ALL_COMMENTS + START,
+      payload: offset
+    })
+
+    fetch(`/api/comment?limit=5&offset=${offset}`)
+      .then((res) => res.json())
+      .then((response) =>
+        dispatch({
+          type: LOAD_ALL_COMMENTS + SUCCESS,
+          payload: offset,
+          response
+        })
+      )
   }
 }

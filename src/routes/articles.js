@@ -7,7 +7,6 @@ class ArticlesRoute extends Component {
   static propTypes = {}
 
   render() {
-    console.log('--- ArticlesRoute match', this.props.match)
     return (
       <div>
         <ArticleList />
@@ -22,7 +21,6 @@ class ArticlesRoute extends Component {
   }
 
   getArticle = ({ match }) => {
-    console.log('--- article match', match)
     return <Article id={match.params.id} isOpen key={match.params.id} />
   }
 }

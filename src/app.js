@@ -3,6 +3,7 @@ import { Route, NavLink, Switch } from 'react-router-dom'
 import UserForm from './components/user-form'
 import Filters from './components/filters'
 import Counter from './components/counter'
+import Comments from './components/comments'
 import ArticlesRoute from './routes/articles'
 
 class App extends Component {
@@ -28,10 +29,16 @@ class App extends Component {
               counter
             </NavLink>
           </div>
+          <div>
+            <NavLink to="/comments" activeStyle={{ color: 'red' }}>
+              comments
+            </NavLink>
+          </div>
         </div>
         <Switch>
           <Route path="/counter" component={Counter} exact />
           <Route path="/filters" component={Filters} />
+          <Route path="/comments" component={Comments} />
           <Route
             path="/articles/new"
             render={() => <h1>New Article Form</h1>}

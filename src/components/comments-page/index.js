@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { loadCommentsPage } from '../../ac'
 import {
-  commentsListSelector,
-  commentsLoadedSelector,
-  commentsLoadingSelector
+  commentsPageSelector,
+  commentsTotalEntitiesSelector,
+  commentsPageLoadedSelector
 } from '../../selectors'
 import Comment from '../comment'
-import Loader from '../common/loader'
+import Pagination from '../pagination'
 
 class CommentsPage extends Component {
   static propTypes = {
@@ -16,36 +16,48 @@ class CommentsPage extends Component {
   }
 
   componentDidMount() {
-    const { loaded, loading, loadCommentsPage, page } = this.props
+    const { loaded, loadCommentsPage, page } = this.props
 
-    if (!loaded && !loading) {
+    if (!loaded) {
       loadCommentsPage(page)
     }
   }
 
   render() {
-    const { loaded, loading } = this.props
+    const { totalEntities } = this.props
 
-    if (loading) return <Loader />
+    return (
+      <div>
+        <Pagination totalEntities={totalEntities} limit={5} />
+        {this.renderComments()}
+      </div>
+    )
+  }
+
+  renderComments = () => {
+    const { loaded, comments } = this.props
+
     if (!loaded) return null
 
     return (
-      <ul>
-        {this.props.comments.map(({ id }) => (
-          <li key={id}>
-            <Comment id={id} />
-          </li>
-        ))}
-      </ul>
+      <div>
+        <ul>
+          {comments.map(({ id }) => (
+            <li key={id}>
+              <Comment id={id} />
+            </li>
+          ))}
+        </ul>
+      </div>
     )
   }
 }
 
 export default connect(
-  (state) => ({
-    comments: commentsListSelector(state),
-    loading: commentsLoadingSelector(state),
-    loaded: commentsLoadedSelector(state)
+  (state, ownProps) => ({
+    comments: commentsPageSelector(state, ownProps),
+    totalEntities: commentsTotalEntitiesSelector(state),
+    loaded: commentsPageLoadedSelector(state, ownProps)
   }),
   { loadCommentsPage }
 )(CommentsPage)

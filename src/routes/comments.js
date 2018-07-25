@@ -8,7 +8,7 @@ class CommentsRoute extends Component {
   }
 
   renderPage = ({ match }) => {
-    return <CommentsPage page={match.params.page} />
+    return <CommentsPage page={match.params.page} key={match.params.page} />
   }
 }
 

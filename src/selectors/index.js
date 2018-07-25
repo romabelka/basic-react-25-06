@@ -9,11 +9,33 @@ export const articleListSelector = createSelector(
   (articlesMap) => articlesMap.valueSeq().toArray()
 )
 export const commentsSelector = (state) => state.comments.entities
-export const commentsLoadingSelector = (state) => state.comments.loading
-export const commentsLoadedSelector = (state) => state.comments.loaded
-export const commentsListSelector = createSelector(
-  commentsSelector,
-  (commentsMap) => commentsMap.valueSeq().toJS()
+export const commentsTotalEntitiesSelector = (state) =>
+  state.comments.totalEntities
+
+export const commentsPageMapSelector = (state) => state.comments.pages
+export const commentsPageIdSelector = (_, props) => props.page
+export const commentsPageSelector = createSelector(
+  commentsPageMapSelector,
+  commentsPageIdSelector,
+  (commentsMap, page) => {
+    try {
+      return commentsMap
+        .getIn([page, 'comments'])
+        .valueSeq()
+        .toJS()
+    } catch (error) {}
+  }
+)
+
+export const commentsPageLoadedSelector = createSelector(
+  commentsPageMapSelector,
+  commentsPageIdSelector,
+  (commentsMap, page) => {
+    try {
+      console.log(commentsMap.getIn([page, 'loaded']))
+      return commentsMap.getIn([page, 'loaded'])
+    } catch (error) {}
+  }
 )
 
 export const idSelector = (_, props) => props.id

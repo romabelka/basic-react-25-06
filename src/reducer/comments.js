@@ -2,7 +2,7 @@ import { ADD_COMMENT, LOAD_ARTICLE_COMMENTS, SUCCESS } from '../constants'
 import { Record, OrderedMap } from 'immutable'
 import { arrToMap } from './utils'
 
-const CommentRecord = Record({
+export const CommentRecord = Record({
   id: null,
   text: null,
   user: null

@@ -92,7 +92,9 @@ class Comments extends Component {
   }
 
   handlePagination = (offset) => () => {
-    this.props.loadComments(offset, this.props.limit)
+    if (offset != this.props.offset) {
+      this.props.loadComments(offset, this.props.limit)
+    }
   }
 }
 

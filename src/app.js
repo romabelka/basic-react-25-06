@@ -4,6 +4,8 @@ import UserForm from './components/user-form'
 import Filters from './components/filters'
 import Counter from './components/counter'
 import ArticlesRoute from './routes/articles'
+import CommentRoute from './routes/comments'
+import NotFound from './components/common/not-found'
 
 class App extends Component {
   static propTypes = {}
@@ -28,6 +30,11 @@ class App extends Component {
               counter
             </NavLink>
           </div>
+          <div>
+            <NavLink to="/comments" activeStyle={{ color: 'red' }}>
+              comments
+            </NavLink>
+          </div>
         </div>
         <Switch>
           <Route path="/counter" component={Counter} exact />
@@ -37,7 +44,8 @@ class App extends Component {
             render={() => <h1>New Article Form</h1>}
           />
           <Route path="/articles" component={ArticlesRoute} />
-          <Route path="*" render={() => <h1>Not Found</h1>} />
+          <Route path="/comments" component={CommentRoute} />
+          <Route path="*" render={() => <NotFound />} />
         </Switch>
       </div>
     )

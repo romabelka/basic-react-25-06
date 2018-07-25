@@ -50,5 +50,8 @@ export const paginatedCommentsSelector = (state) =>
 export const pageCommentsSelector = createSelector(
   paginatedCommentsSelector,
   idSelector,
-  (commentsMap, id) => commentsMap.get(id).toArray()
+  (commentsMap, id) => {
+    console.log('paginatedCommentsSelector', commentsMap, id)
+    return commentsMap.get(id) ? commentsMap.get(id).toArray() : []
+  }
 )

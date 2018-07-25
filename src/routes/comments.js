@@ -1,30 +1,27 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
-import ArticleList from '../components/article-list'
-import Article from '../components/article'
+import PaginatedCommentList from '../components/paginated-comment-list'
 
-class ArticlesRoute extends Component {
+class CommentsRoute extends Component {
   static propTypes = {}
 
   render() {
-    console.log('--- CommentsRoute match', this.props.match)
+    console.log(
+      '--- CommentsRoute match',
+      this.props.match,
+      this.props.match.params.id
+    )
     return (
       <div>
-        <ArticleList />
-        <Route
-          path="/articles"
-          render={() => <h1>Please select an article</h1>}
-          exact
-        />
-        <Route path="/articles/:id" render={this.getArticle} />
+        <Route path="/comments/:id" render={this.getCommentList} />
       </div>
     )
   }
-
-  getArticle = ({ match }) => {
-    console.log('--- article match', match)
-    return <Article id={match.params.id} isOpen key={match.params.id} />
+  getCommentList = ({ match }) => {
+    return (
+      <PaginatedCommentList pageId={match.params.id} key={match.params.id} />
+    )
   }
 }
 
-export default ArticlesRoute
+export default CommentsRoute

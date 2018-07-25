@@ -7,8 +7,7 @@ export function arrToMap(arr, ItemRecord) {
   )
 }
 export function arrToSet(arr, ItemRecord) {
-  return arr.reduce(
-    (acc, item) => acc.push(ItemRecord ? new ItemRecord(item) : item),
-    new OrderedSet({})
+  return OrderedSet.of(
+    ...arr.map((item) => (ItemRecord ? new ItemRecord(item) : item))
   )
 }

@@ -42,3 +42,14 @@ export const articleSelector = createSelector(
   idSelector,
   (articles, id) => articles.get(id)
 )
+
+export const paginationSelector = (state) => state.pagination
+export const pageSelector = (_, props) => props.page
+
+export const paginationPageSelector = createSelector(
+  paginationSelector,
+  pageSelector,
+  (pagination, page) => {
+    return pagination[page]
+  }
+)

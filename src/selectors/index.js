@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import { commentsList } from '../reducer/comments'
 
 export const filtersSelector = (state) => state.filters
 export const articlesLoadingSelector = (state) => state.articles.loading
@@ -42,3 +43,10 @@ export const articleSelector = createSelector(
   idSelector,
   (articles, id) => articles.get(id)
 )
+
+export const commentsLoadingSelector = (state) => state.commentsList.loading
+export const commentsLoadedSelector = (state) => state.commentsList.loaded
+export const commentsOffsetSelector = (state) => state.commentsList.offset
+export const commentsLimitSelector = (state) => state.commentsList.limit
+export const commentsTotalSelector = (state) => state.commentsList.total
+export const commentsMapSelector = (state) => state.commentsList.entities

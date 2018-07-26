@@ -11,19 +11,18 @@ class ArticlesRoute extends Component {
     return (
       <div>
         <ArticleList />
-        <Route
-          path="/articles"
-          render={() => <h1>Please select an article</h1>}
-          exact
-        />
-        <Route path="/articles/:id" render={this.getArticle} />
+        <Route path="/articles/:id" exact children={this.getArticle} />
       </div>
     )
   }
 
   getArticle = ({ match }) => {
     console.log('--- article match', match)
-    return <Article id={match.params.id} isOpen key={match.params.id} />
+    return match ? (
+      <Article id={match.params.id} isOpen key={match.params.id} />
+    ) : (
+      <h1>Please select an article</h1>
+    )
   }
 }
 

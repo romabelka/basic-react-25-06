@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "connected-react-router": "^4.3.0",
+    "history": "^4.7.2",
     "immutable": "^4.0.0-rc.9",
     "jest-cli": "^20.0.4",
     "prop-types": "^15.6.2",

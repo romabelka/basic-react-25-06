@@ -18,6 +18,7 @@ class App extends Component {
       <div>
         <UserForm />
         <Select
+          isMulti={true}
           options={this.options}
           onChange={this.handleSelectChange}
           value={this.state.selected}

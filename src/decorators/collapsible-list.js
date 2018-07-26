@@ -2,15 +2,13 @@
 import React from 'react'
 
 export default (OriginalComponent) =>
-  class DecoratedComponent extends React.Component {
+  class collapsibleList extends React.Component {
     state = {
-      openItemId: null
+      openList: false
     }
 
-    toggleOpenItem = (openItemId) => {
-      this.setState({
-        openItemId: openItemId === this.state.openItemId ? null : openItemId
-      })
+    toggleList = () => {
+      this.setState({ openList: !this.state.openList })
     }
 
     render() {
@@ -18,7 +16,7 @@ export default (OriginalComponent) =>
         <OriginalComponent
           {...this.props}
           {...this.state}
-          toggleOpenItem={this.toggleOpenItem}
+          toggleList={this.toggleList}
         />
       )
     }

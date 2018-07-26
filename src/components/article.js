@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import ArticleCommentsList from './article-comments-list'
 
 class Article extends PureComponent {
   render() {
@@ -13,6 +14,7 @@ class Article extends PureComponent {
           </button>
         </h3>
         {this.body}
+        {this.comments}
       </div>
     )
   }
@@ -24,6 +26,13 @@ class Article extends PureComponent {
     if (!isOpen) return null
 
     return <section ref={this.setSectionRef}>{article.text}</section>
+  }
+
+  get comments() {
+    const { comments } = this.props.article
+
+    if (!comments) return null
+    return <ArticleCommentsList comments={comments} />
   }
 
   setSectionRef = (ref) => (this.section = ref)

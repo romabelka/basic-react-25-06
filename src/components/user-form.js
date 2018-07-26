@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import RangeDaypicker from './range-daypicker'
 
 class UserForm extends Component {
   state = {
@@ -8,6 +9,7 @@ class UserForm extends Component {
     return (
       <div>
         Username: <input value={this.state.user} onChange={this.handleChange} />
+        <RangeDaypicker />
       </div>
     )
   }

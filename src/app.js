@@ -5,6 +5,7 @@ import Filters from './components/filters'
 import Counter from './components/counter'
 import ArticlesRoute from './routes/articles'
 import CommentsPage from './routes/comments-page'
+import Menu, { MenuItem } from './components/menu'
 
 class App extends Component {
   static propTypes = {}
@@ -13,28 +14,12 @@ class App extends Component {
     return (
       <div>
         <UserForm />
-        <div>
-          <div>
-            <NavLink to="/articles" activeStyle={{ color: 'red' }}>
-              articles
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/filters" activeStyle={{ color: 'red' }}>
-              filters
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/counter" activeStyle={{ color: 'red' }}>
-              counter
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/comments/1" activeStyle={{ color: 'red' }}>
-              comments
-            </NavLink>
-          </div>
-        </div>
+        <Menu>
+          <MenuItem to="/articles">Articles</MenuItem>
+          <MenuItem to="/comments">Comments</MenuItem>
+          <MenuItem to="/filters">Filters</MenuItem>
+          <MenuItem to="/counter">Counter</MenuItem>
+        </Menu>
         <Switch>
           <Redirect from="/" exact to="/articles" />
           <Route path="/counter" component={Counter} exact />

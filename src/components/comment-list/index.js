@@ -7,6 +7,7 @@ import CommentForm from '../comment-form'
 import Loader from '../common/loader'
 import toggleOpen from '../../decorators/toggleOpen'
 import { loadArticleComments } from '../../ac'
+import { Consumer as AuthConsumer } from '../../contexts/auth'
 import './style.css'
 
 class CommentList extends Component {
@@ -69,6 +70,8 @@ class CommentList extends Component {
         ) : (
           <h3 className="test--comment-list__empty">No comments yet</h3>
         )}
+        <AuthConsumer>{(user) => <h3>{user}</h3>}</AuthConsumer>
+
         <CommentForm articleId={id} />
       </div>
     )

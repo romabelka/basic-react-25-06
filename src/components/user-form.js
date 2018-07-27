@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import i18n from './i18n'
 
 class UserForm extends Component {
   render() {
+    const { t } = this.props
+
     return (
       <div>
-        Username:{' '}
+        {t('Username')}:{' '}
         <input value={this.props.value} onChange={this.handleChange} />
       </div>
     )
@@ -16,4 +19,4 @@ class UserForm extends Component {
   }
 }
 
-export default UserForm
+export default i18n(UserForm)

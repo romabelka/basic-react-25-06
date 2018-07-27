@@ -6,3 +6,9 @@ export function arrToMap(arr, ItemRecord) {
     new OrderedMap({})
   )
 }
+
+export function filterArrayById(arr, filters) {
+  return arr.filter((element) => {
+    return !filters.has(element.id)
+  })
+}

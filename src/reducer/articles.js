@@ -8,7 +8,7 @@ import {
   START,
   LOAD_ARTICLE
 } from '../constants'
-import { arrToMap } from './utils'
+import { arrToMap, filterArrayById } from './utils'
 
 const ArticleRecord = Record({
   id: null,
@@ -46,7 +46,10 @@ export default (state = new ReducerRecord(), action) => {
 
     case LOAD_ALL_ARTICLES + SUCCESS:
       return state
-        .set('entities', arrToMap(response, ArticleRecord))
+        .mergeIn(
+          ['entities'],
+          arrToMap(filterArrayById(response, state.entities), ArticleRecord)
+        )
         .set('loading', false)
         .set('loaded', true)
 

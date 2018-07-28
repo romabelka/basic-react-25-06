@@ -7,11 +7,14 @@ import ArticlesRoute from './routes/articles'
 import CommentsPage from './routes/comments-page'
 import Menu, { MenuItem } from './components/menu'
 import { Provider as AuthProvider } from './contexts/auth'
+import { ContextProvider as LocalizationProvider, ContextConsumer as LocalizationConsumer } from './contexts/localization'
+import Select from 'react-select'
 
 class App extends Component {
   static propTypes = {}
   state = {
-    username: ''
+    username: '',
+    lang: 'en'
   }
 
   handleUserChange = (username) => this.setState({ username })
@@ -19,16 +22,22 @@ class App extends Component {
   render() {
     return (
       <AuthProvider value={this.state.username}>
+        <Select
+          options={[{label: 'ru', value: 'ru'}, {label: 'en', value: 'en'}]}
+          value={{label: this.state.lang, value: this.state.lang}}
+          onChange={(opt) => this.setState({lang: opt.value})}
+        />
+        <LocalizationProvider lang={this.state.lang}>
         <div>
           <UserForm
             onChange={this.handleUserChange}
             value={this.state.username}
           />
           <Menu>
-            <MenuItem to="/articles">Articles</MenuItem>
-            <MenuItem to="/comments">Comments</MenuItem>
-            <MenuItem to="/filters">Filters</MenuItem>
-            <MenuItem to="/counter">Counter</MenuItem>
+            <MenuItem to="/articles"><LocalizationConsumer>Articles</LocalizationConsumer></MenuItem>
+            <MenuItem to="/comments"><LocalizationConsumer>Comments</LocalizationConsumer></MenuItem>
+            <MenuItem to="/filters"><LocalizationConsumer>Filters</LocalizationConsumer></MenuItem>
+            <MenuItem to="/counter"><LocalizationConsumer>Counter</LocalizationConsumer></MenuItem>
           </Menu>
           <Switch>
             <Redirect from="/" exact to="/articles" />
@@ -44,6 +53,7 @@ class App extends Component {
             <Route path="*" exact render={() => <h1>Not Found</h1>} />
           </Switch>
         </div>
+      </LocalizationProvider>
       </AuthProvider>
     )
   }

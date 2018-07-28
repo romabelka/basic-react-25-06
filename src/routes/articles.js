@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import ArticleList from '../components/article-list'
 import Article from '../components/article'
+import i18n from '../decorators/i18n'
 
 class ArticlesRoute extends Component {
   static propTypes = {}
@@ -17,13 +18,14 @@ class ArticlesRoute extends Component {
   }
 
   getArticle = ({ match }) => {
+    const { translate } = this.props
     console.log('--- article match', match)
     return match ? (
       <Article id={match.params.id} isOpen key={match.params.id} />
     ) : (
-      <h1>Please select an article</h1>
+      <h1>{translate('article.need_select')}</h1>
     )
   }
 }
 
-export default ArticlesRoute
+export default i18n(ArticlesRoute)

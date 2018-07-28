@@ -9,6 +9,7 @@ import toggleOpen from '../../decorators/toggleOpen'
 import { loadArticleComments } from '../../ac'
 import { Consumer as AuthConsumer } from '../../contexts/auth'
 import './style.css'
+import i18n from '../../decorators/i18n'
 
 class CommentList extends Component {
   static propTypes = {
@@ -36,8 +37,10 @@ class CommentList extends Component {
   }
 
   render() {
-    const { isOpen, toggleOpen } = this.props
-    const text = isOpen ? 'hide comments' : 'show comments'
+    const { isOpen, toggleOpen, translate } = this.props
+    const text = translate(
+      isOpen ? 'article.hide_comments' : 'article.show_comments'
+    )
     return (
       <div>
         <button onClick={toggleOpen} className="test--comment-list__btn">
@@ -57,7 +60,8 @@ class CommentList extends Component {
   getBody() {
     const {
       article: { comments, id, commentsLoading, commentsLoaded },
-      isOpen
+      isOpen,
+      translate
     } = this.props
     if (!isOpen) return null
     if (commentsLoading) return <Loader />
@@ -68,7 +72,9 @@ class CommentList extends Component {
         {comments.length ? (
           this.comments
         ) : (
-          <h3 className="test--comment-list__empty">No comments yet</h3>
+          <h3 className="test--comment-list__empty">
+            {translate('article.no_comments')}
+          </h3>
         )}
         <AuthConsumer>{(user) => <h3>{user}</h3>}</AuthConsumer>
 
@@ -90,7 +96,9 @@ class CommentList extends Component {
   }
 }
 
-export default connect(
-  null,
-  { loadArticleComments }
-)(toggleOpen(CommentList))
+export default i18n(
+  connect(
+    null,
+    { loadArticleComments }
+  )(toggleOpen(CommentList))
+)

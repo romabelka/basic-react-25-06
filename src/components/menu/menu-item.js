@@ -1,11 +1,12 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import i18n from '../../decorators/i18n'
 
-function MenuItem({ children, ...rest }) {
+function MenuItem({ children, translate, ...rest }) {
   return (
     <div>
       <NavLink {...rest} activeStyle={{ color: 'red' }}>
-        {children}
+        {translate(children)}
       </NavLink>
     </div>
   )
@@ -13,4 +14,4 @@ function MenuItem({ children, ...rest }) {
 
 MenuItem.propTypes = {}
 
-export default MenuItem
+export default i18n(MenuItem)

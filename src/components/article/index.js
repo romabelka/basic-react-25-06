@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list'
@@ -7,8 +7,26 @@ import CSSTransition from 'react-addons-css-transition-group'
 import { deleteArticle, loadArticle } from '../../ac'
 import './style.css'
 import { articleSelector } from '../../selectors'
+import localized from '../../decorators/localized'
 
-class Article extends PureComponent {
+class ArticleHeader extends Component {
+  render() {
+    const { article, isOpen, toggleOpen, handleDelete, local } = this.props
+    return (
+      <h3>
+        {article.title}
+        <button onClick={toggleOpen} className="test--article__btn">
+          {isOpen ? local.article.close : local.article.open}
+        </button>
+        <button onClick={handleDelete}>{local.article.delete}</button>
+      </h3>
+    )
+  }
+}
+
+const LocalizedArticleHeader = localized(ArticleHeader)
+
+class Article extends Component {
   state = {
     error: null
   }
@@ -29,13 +47,12 @@ class Article extends PureComponent {
 
     return (
       <div className="test--article__container">
-        <h3>
-          {article.title}
-          <button onClick={this.handleClick} className="test--article__btn">
-            {isOpen ? 'close' : 'open'}
-          </button>
-          <button onClick={this.handleDelete}>delete me</button>
-        </h3>
+        <LocalizedArticleHeader
+          article={article}
+          isOpen={isOpen}
+          toggleOpen={this.handleClick}
+          handleDelete={this.handleDelete}
+        />
         <CSSTransition
           transitionName="article"
           transitionEnterTimeout={500}

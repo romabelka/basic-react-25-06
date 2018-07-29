@@ -9,6 +9,20 @@ import toggleOpen from '../../decorators/toggleOpen'
 import { loadArticleComments } from '../../ac'
 import { Consumer as AuthConsumer } from '../../contexts/auth'
 import './style.css'
+import localized from '../../decorators/localized'
+
+class ShowHideButton extends Component {
+  render() {
+    const { isOpen, toggleOpen, local } = this.props
+    const text = isOpen ? local.comment.list.hide : local.comment.list.show
+    return (
+      <button onClick={toggleOpen} className="test--comment-list__btn">
+        {text}
+      </button>
+    )
+  }
+}
+const LocalizedShowHideButton = localized(ShowHideButton)
 
 class CommentList extends Component {
   static propTypes = {
@@ -37,12 +51,9 @@ class CommentList extends Component {
 
   render() {
     const { isOpen, toggleOpen } = this.props
-    const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
-        <button onClick={toggleOpen} className="test--comment-list__btn">
-          {text}
-        </button>
+        <LocalizedShowHideButton isOpen={isOpen} toggleOpen={toggleOpen} />
         <CSSTransition
           transitionName="comments"
           transitionEnterTimeout={500}

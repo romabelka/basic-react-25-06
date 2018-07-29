@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addComment } from '../../ac'
 import './style.css'
+import localized from '../../decorators/localized'
 
 class CommentForm extends Component {
   static propTypes = {}
@@ -12,21 +13,26 @@ class CommentForm extends Component {
   }
 
   render() {
+    const { local } = this.props
     return (
       <form onSubmit={this.handleSubmit}>
-        user:{' '}
+        {local.comment.form.user}:{' '}
         <input
           value={this.state.user}
           onChange={this.handleChange('user')}
           className={this.getClassName('user')}
         />
-        comment:{' '}
+        {local.comment.form.comment}:{' '}
         <input
           value={this.state.text}
           onChange={this.handleChange('text')}
           className={this.getClassName('text')}
         />
-        <input type="submit" value="submit" disabled={!this.isValidForm()} />
+        <input
+          type="submit"
+          value={local.comment.form.submit}
+          disabled={!this.isValidForm()}
+        />
       </form>
     )
   }
@@ -71,4 +77,4 @@ export default connect(
   (dispatch, ownProps) => ({
     addComment: (comment) => dispatch(addComment(comment, ownProps.articleId))
   })
-)(CommentForm)
+)(localized(CommentForm))

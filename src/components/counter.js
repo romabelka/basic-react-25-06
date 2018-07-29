@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { increment } from '../ac'
+import localized from '../decorators/localized'
 
 class Counter extends Component {
   render() {
-    console.log('---', 123)
+    const { local } = this.props
     return (
       <div>
         <h1>{this.props.count}</h1>
-        <button onClick={this.handleIncrement}>increment</button>
+        <button onClick={this.handleIncrement}>
+          {local.counter.increment}
+        </button>
       </div>
     )
   }
@@ -25,4 +28,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { increment }
-)(Counter)
+)(localized(Counter))

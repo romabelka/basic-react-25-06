@@ -2,7 +2,7 @@ import React from 'react'
 import Enzyme, { render, shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import WrappedArticleList, { ArticleList } from './article-list'
-import articles from '../fixtures'
+import articles from '../../fixtures'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -18,7 +18,7 @@ describe('ArticleList', () => {
   })
 
   it('should render all articles closed by default', () => {
-    const wrapper = render(<WrappedArticleList articles={articles} />)
+    const wrapper = shallow(<WrappedArticleList articles={articles} />)
 
     expect(wrapper.find('.test--article__body').length).toEqual(0)
   })

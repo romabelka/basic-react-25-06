@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ArticleList from './components/article-list'
+import ArticleList from './components/article-list/article-list'
 import UserForm from './components/user-form'
 import ArticlesChart from './components/chart'
 import Filters from './components/filters'

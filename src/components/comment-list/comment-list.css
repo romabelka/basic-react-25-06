@@ -1,0 +1,12 @@
+
+.comment-list-leave-active {
+	opacity: 0
+}
+
+.comment-list {
+	background: cornflowerblue; 
+	transition: 2s;
+}
+.comment-list-enter {
+	background: rgba(100, 149, 237, 0.2)
+}

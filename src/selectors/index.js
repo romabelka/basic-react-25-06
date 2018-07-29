@@ -5,7 +5,7 @@ export const articlesLoadingSelector = (state) => state.articles.loading
 export const articlesLoadedSelector = (state) => state.articles.loaded
 export const articlesMapSelector = (state) => state.articles.entities
 export const articleListSelector = createSelector(
-  articlesMapSelector,
+  (state) => state.articles.list,
   (articlesMap) => articlesMap.valueSeq().toArray()
 )
 export const commentsSelector = (state) => state.comments.entities

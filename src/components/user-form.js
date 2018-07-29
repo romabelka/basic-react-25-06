@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import localized from '../decorators/localized'
 
 class UserForm extends Component {
   render() {
+    const { local } = this.props
     return (
       <div>
-        Username:{' '}
+        {local.user.form.name}{' '}
         <input value={this.props.value} onChange={this.handleChange} />
       </div>
     )
@@ -16,4 +18,4 @@ class UserForm extends Component {
   }
 }
 
-export default UserForm
+export default localized(UserForm)

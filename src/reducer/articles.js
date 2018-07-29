@@ -21,8 +21,15 @@ const ArticleRecord = Record({
   comments: []
 })
 
+const ArticleListItem = Record({
+  id: null,
+  title: null,
+  date: null
+})
+
 const ReducerRecord = new Record({
   entities: arrToMap([], ArticleRecord),
+  list: arrToMap([], ArticleListItem),
   loading: false,
   loaded: false,
   error: null
@@ -42,13 +49,13 @@ export default (state = new ReducerRecord(), action) => {
       )
 
     case LOAD_ALL_ARTICLES + START:
-      return state.set('loading', true)
+      return state.setIn(['loading'], true)
 
     case LOAD_ALL_ARTICLES + SUCCESS:
       return state
-        .set('entities', arrToMap(response, ArticleRecord))
-        .set('loading', false)
-        .set('loaded', true)
+        .setIn(['list'], arrToMap(response, ArticleListItem))
+        .setIn(['loading'], false)
+        .setIn(['loaded'], true)
 
     case LOAD_ARTICLE + START:
       return state.setIn(['entities', payload.id, 'loading'], true)

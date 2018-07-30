@@ -19,7 +19,11 @@ class Index extends PureComponent {
       <div className="test--article__container">
         <h3>
           {article.title}
-          <button onClick={this.handleClick} className="test--article__btn">
+          <button
+            onClick={this.handleClick}
+            className="test--article__btn"
+            data-test-article-close
+          >
             {isOpen ? 'close' : 'open'}
           </button>
         </h3>

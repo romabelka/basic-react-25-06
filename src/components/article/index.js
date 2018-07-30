@@ -7,6 +7,7 @@ import CSSTransition from 'react-addons-css-transition-group'
 import { deleteArticle, loadArticle } from '../../ac'
 import './style.css'
 import { articleSelector } from '../../selectors'
+import i18n from '../i18n'
 
 class Article extends PureComponent {
   state = {
@@ -24,7 +25,7 @@ class Article extends PureComponent {
   }
 
   render() {
-    const { article, isOpen } = this.props
+    const { article, isOpen, t } = this.props
     if (!article) return null
 
     return (
@@ -32,7 +33,7 @@ class Article extends PureComponent {
         <h3>
           {article.title}
           <button onClick={this.handleClick} className="test--article__btn">
-            {isOpen ? 'close' : 'open'}
+            {t(isOpen ? 'close' : 'open')}
           </button>
           <button onClick={this.handleDelete}>delete me</button>
         </h3>
@@ -87,4 +88,4 @@ export default connect(
     article: articleSelector(state, ownProps)
   }),
   { deleteArticle, loadArticle }
-)(Article)
+)(i18n(Article))

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import DateRange from './date-range'
 import SelectFilter from './select'
+// import { changeDate, changeSelect } from '../../ac'
+// import { connect } from 'react-redux'
 
 class Filters extends Component {
   static propTypes = {}

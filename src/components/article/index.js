@@ -15,6 +15,10 @@ class Article extends PureComponent {
     this.setState({ error })
   }
 
+  componentDidMount() {
+    console.log('PROPS!!!!!', this.props)
+  }
+
   render() {
     const { article, isOpen } = this.props
     return (
@@ -41,7 +45,9 @@ class Article extends PureComponent {
 
   handleDelete = () => {
     const { article, deleteArticle } = this.props
+    // this.props.dispatch({type: 'PENIOF'})
     deleteArticle(article.id)
+    this.props.penio()
   }
 
   get body() {
@@ -71,5 +77,7 @@ Article.propTypes = {
 
 export default connect(
   null,
-  { deleteArticle }
+  { penio: () => ({ type: 'CALL_PENIO' }) }
 )(Article)
+
+// export default connect()(Article);
